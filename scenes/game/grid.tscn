@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdv18mp3lt10j"]
+
+[ext_resource type="Script" path="res://scenes/game/grid.gd" id="1_6ul76"]
+[ext_resource type="Texture2D" uid="uid://bbi386jrplkwb" path="res://art/Battle_grid.webp" id="1_rcv7n"]
+[ext_resource type="PackedScene" uid="uid://b060i4dcd3oup" path="res://scenes/player/player_tile.tscn" id="2_mfxtu"]
+
+[node name="grid" type="Node2D"]
+script = ExtResource("1_6ul76")
+player_tile_scene = ExtResource("2_mfxtu")
+
+[node name="gridSprite" type="Sprite2D" parent="."]
+position = Vector2(360, 750)
+texture = ExtResource("1_rcv7n")

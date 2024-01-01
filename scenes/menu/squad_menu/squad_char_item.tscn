@@ -1,0 +1,134 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfuaenyup5m0v"]
+
+[ext_resource type="Script" path="res://scenes/menu/squad_menu/squad_char_item.gd" id="1_wije5"]
+[ext_resource type="PackedScene" uid="uid://kkk2v4r0sywa" path="res://scenes/GUI_component/character/xp_bar.tscn" id="2_rj4hj"]
+[ext_resource type="PackedScene" uid="uid://cymvq2mn58fh1" path="res://scenes/GUI_component/character/creature_tile.tscn" id="2_vfkg7"]
+[ext_resource type="Texture2D" uid="uid://bcbpldmllrp6f" path="res://art/GUI_components/skillBoostIcon.png" id="3_iwmiq"]
+
+[node name="squad_char_item" type="HBoxContainer"]
+custom_minimum_size = Vector2(720, 150)
+offset_right = 720.0
+offset_bottom = 120.0
+theme_override_constants/separation = 42
+alignment = 1
+script = ExtResource("1_wije5")
+
+[node name="portrait" parent="." instance=ExtResource("2_vfkg7")]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="name" type="Label" parent="portrait"]
+layout_mode = 2
+offset_left = 115.0
+offset_top = -10.0
+offset_right = 275.0
+offset_bottom = 13.0
+text = "<name>"
+
+[node name="resumeContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 125)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="stats" type="HBoxContainer" parent="resumeContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 26
+
+[node name="hp" type="Label" parent="resumeContainer/stats"]
+layout_direction = 1
+layout_mode = 2
+text = "PV: <HP>
+"
+
+[node name="boost_icon" type="TextureRect" parent="resumeContainer/stats"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("3_iwmiq")
+expand_mode = 2
+
+[node name="boost" type="Label" parent="resumeContainer/stats/boost_icon"]
+layout_mode = 2
+offset_left = 25.0
+offset_right = 71.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0.239216, 0.815686, 0.894118, 1)
+text = ": <>%
+"
+
+[node name="jobs" type="HBoxContainer" parent="resumeContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 11
+
+[node name="job1" type="Button" parent="resumeContainer/jobs"]
+layout_mode = 2
+mouse_filter = 2
+button_mask = 0
+text = "Job 1"
+
+[node name="job1_lvl" type="Label" parent="resumeContainer/jobs/job1"]
+layout_mode = 0
+offset_top = 31.0
+offset_right = 40.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="job2" type="Button" parent="resumeContainer/jobs"]
+layout_mode = 2
+mouse_filter = 2
+disabled = true
+button_mask = 0
+text = "Job 2"
+
+[node name="job2_lvl" type="Label" parent="resumeContainer/jobs/job2"]
+layout_mode = 0
+offset_top = 31.0
+offset_right = 40.0
+offset_bottom = 54.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="job3" type="Button" parent="resumeContainer/jobs"]
+layout_mode = 2
+mouse_filter = 2
+disabled = true
+button_mask = 0
+text = "Job 3"
+
+[node name="job3_lvl" type="Label" parent="resumeContainer/jobs/job3"]
+layout_mode = 0
+offset_top = 31.0
+offset_right = 40.0
+offset_bottom = 54.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="xp_box" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 125)
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="current_lvl" type="Label" parent="xp_box"]
+layout_mode = 2
+text = "LV 12"
+vertical_alignment = 1
+
+[node name="xpBar" parent="xp_box" instance=ExtResource("2_rj4hj")]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="swapButton" type="Button" parent="."]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "Swap"

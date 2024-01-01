@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://1gc00w3dnm24"]
+
+[ext_resource type="Script" path="res://scenes/menu/character_selector_menu/character_list.gd" id="1_4k1py"]
+
+[node name="scrollContainer" type="ScrollContainer"]
+custom_minimum_size = Vector2(720, 1030)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+horizontal_scroll_mode = 0
+
+[node name="character_list" type="VFlowContainer" parent="."]
+custom_minimum_size = Vector2(720, 1030)
+layout_mode = 2
+script = ExtResource("1_4k1py")

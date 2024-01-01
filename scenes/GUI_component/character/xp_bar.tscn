@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://kkk2v4r0sywa"]
+
+[ext_resource type="Texture2D" uid="uid://bojvvdw6srdlo" path="res://art/GUI_components/xp_bar_under.png" id="1_8tvxj"]
+[ext_resource type="Texture2D" uid="uid://bt5hje22tl5f3" path="res://art/GUI_components/xp_bar.png" id="1_b8l3j"]
+
+[node name="xpBar" type="TextureProgressBar"]
+offset_top = 16.0
+offset_right = 152.0
+offset_bottom = 31.0
+texture_under = ExtResource("1_8tvxj")
+texture_progress = ExtResource("1_b8l3j")
+texture_progress_offset = Vector2(1, 0.5)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = -18.0
+offset_right = 66.0
+theme_override_font_sizes/font_size = 13
+text = "Next Level"
+
+[node name="missingPx" type="Label" parent="."]
+layout_mode = 0
+offset_left = 157.0
+offset_top = -15.0
+offset_right = 197.0
+offset_bottom = 21.0
+text = "<int>"
+vertical_alignment = 1
