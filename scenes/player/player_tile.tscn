@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b060i4dcd3oup"]
 
 [ext_resource type="Script" path="res://scenes/player/player_tile.gd" id="1_ygysc"]
-[ext_resource type="Texture2D" uid="uid://dlpmba55c0387" path="res://art/characters/SpearIcon.webp" id="3_ksduq"]
+[ext_resource type="Texture2D" uid="uid://dlpmba55c0387" path="res://art/characters/icon/SpearIcon.webp" id="3_ksduq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pq87h"]
 radius = 46.0

@@ -23,32 +23,33 @@ offset_bottom = 40.0
 texture = ExtResource("2_2u1lt")
 
 [node name="first_bar" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(80, 30)
 layout_mode = 0
 offset_left = 45.0
 offset_top = 8.0
-offset_right = 145.0
+offset_right = 115.0
 offset_bottom = 38.0
 value = 100.0
 texture_under = ExtResource("1_3tme4")
 texture_progress = ExtResource("2_vk84r")
 
 [node name="second_bar" type="TextureProgressBar" parent="."]
-custom_minimum_size = Vector2(100, 30)
+custom_minimum_size = Vector2(80, 30)
 layout_mode = 0
-offset_left = 155.0
+offset_left = 130.0
 offset_top = 8.0
-offset_right = 255.0
+offset_right = 210.0
 offset_bottom = 38.0
 value = 100.0
 texture_under = ExtResource("1_3tme4")
 texture_progress = ExtResource("2_vk84r")
 
 [node name="third_bar" type="TextureProgressBar" parent="."]
-custom_minimum_size = Vector2(100, 30)
+custom_minimum_size = Vector2(80, 30)
 layout_mode = 0
-offset_left = 265.0
+offset_left = 215.0
 offset_top = 8.0
-offset_right = 365.0
+offset_right = 295.0
 offset_bottom = 38.0
 value = 50.0
 texture_under = ExtResource("1_3tme4")

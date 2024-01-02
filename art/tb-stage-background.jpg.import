@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbi386jrplkwb"
-path="res://.godot/imported/Battle_grid.webp-5b224a3cb86aa1bdbd0c6903f27295c5.ctex"
+uid="uid://cynfw5cgiq32m"
+path="res://.godot/imported/tb-stage-background.jpg-3037d7b75c054df26cf3aed6d13f5584.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/Battle_grid.webp"
-dest_files=["res://.godot/imported/Battle_grid.webp-5b224a3cb86aa1bdbd0c6903f27295c5.ctex"]
+source_file="res://art/tb-stage-background.jpg"
+dest_files=["res://.godot/imported/tb-stage-background.jpg-3037d7b75c054df26cf3aed6d13f5584.ctex"]
 
 [params]
 

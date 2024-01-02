@@ -1,0 +1,113 @@
+[gd_scene load_steps=6 format=3 uid="uid://cey6l1w51bh7p"]
+
+[ext_resource type="PackedScene" uid="uid://d1sogmddulf6u" path="res://scenes/GUI_component/battle/power_bar.tscn" id="1_on1bg"]
+[ext_resource type="PackedScene" uid="uid://copvud557kxb3" path="res://scenes/GUI_component/battle/player_time_bar.tscn" id="2_kp5s0"]
+[ext_resource type="Texture2D" uid="uid://8eraav5brp64" path="res://art/GUI_components/battleBar_bg.webp" id="3_874rd"]
+[ext_resource type="Texture2D" uid="uid://cp5himsgtbgvx" path="res://art/CoinsIcon.webp" id="3_dogm5"]
+[ext_resource type="Texture2D" uid="uid://p7lpmff7ptxn" path="res://art/Items_icon.webp" id="3_o4q2b"]
+
+[node name="BattleTopBar" type="Control"]
+custom_minimum_size = Vector2(720, 125)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="mainContainer" type="HBoxContainer" parent="."]
+z_index = 1
+custom_minimum_size = Vector2(640, 110)
+layout_mode = 0
+offset_left = 40.0
+offset_top = 20.0
+offset_right = 680.0
+offset_bottom = 120.0
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="progressContainer" type="VBoxContainer" parent="mainContainer"]
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Power bar" parent="mainContainer/progressContainer" instance=ExtResource("1_on1bg")]
+layout_mode = 2
+
+[node name="playerTimeBar" parent="mainContainer/progressContainer" instance=ExtResource("2_kp5s0")]
+custom_minimum_size = Vector2(255, 40)
+layout_mode = 2
+
+[node name="rewardContainer" type="VBoxContainer" parent="mainContainer"]
+custom_minimum_size = Vector2(115, 100)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="coinsIcon" type="TextureRect" parent="mainContainer/rewardContainer"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("3_dogm5")
+stretch_mode = 3
+
+[node name="collectedCoins" type="Label" parent="mainContainer/rewardContainer/coinsIcon"]
+custom_minimum_size = Vector2(60, 50)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 110.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 25
+text = "0"
+vertical_alignment = 1
+
+[node name="pexIcon" type="TextureRect" parent="mainContainer/rewardContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+
+[node name="collectedPex" type="Label" parent="mainContainer/rewardContainer/pexIcon"]
+custom_minimum_size = Vector2(60, 50)
+layout_mode = 0
+offset_left = 50.0
+offset_right = 110.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 25
+text = "0"
+vertical_alignment = 1
+
+[node name="dropContainer" type="VBoxContainer" parent="mainContainer"]
+custom_minimum_size = Vector2(115, 100)
+layout_mode = 2
+
+[node name="itemsIcon" type="TextureRect" parent="mainContainer/dropContainer"]
+custom_minimum_size = Vector2(25, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+texture = ExtResource("3_o4q2b")
+stretch_mode = 3
+
+[node name="collectedItems" type="Label" parent="mainContainer/dropContainer/itemsIcon"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 0
+offset_left = 52.0
+offset_right = 92.0
+offset_bottom = 50.0
+theme_override_font_sizes/font_size = 36
+text = "0"
+horizontal_alignment = 1
+
+[node name="pauseButton" type="Button" parent="mainContainer"]
+custom_minimum_size = Vector2(80, 50)
+layout_mode = 2
+size_flags_vertical = 0
+text = "Pause"
+
+[node name="background" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(720, 150)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("3_874rd")

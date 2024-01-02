@@ -78,7 +78,7 @@ Floor
 	- it has a order's number
 	- It may have traps on fixed position
 
-
+https://terrabattle.fandom.com/wiki/Traps
 
 ---
 
@@ -205,6 +205,24 @@ Battle Game:
 
 
 	src: https://terrabattle.fandom.com/wiki/Battles
+
+
+
+
+
+
+
+Player turn:
+	wait for player to pick a fighter
+	once a fighter is picked:
+		set fighter as picked
+		start timer => update time bar
+		Update fighter pos
+		When timer finish:
+			stop unit on its tile
+			set unpicked
+
+			
 
 
 
