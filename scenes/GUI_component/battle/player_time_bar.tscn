@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://copvud557kxb3"]
+
+[ext_resource type="Texture2D" uid="uid://de85gprh30ojl" path="res://art/skills/Skill_icon_time.webp" id="1_k8ohb"]
+[ext_resource type="Script" path="res://scenes/GUI_component/battle/player_time_bar.gd" id="1_xxvsk"]
+[ext_resource type="Texture2D" uid="uid://dmxyug4hgngra" path="res://art/GUI_components/timeBar_under.webp" id="3_j6eq2"]
+[ext_resource type="Texture2D" uid="uid://cu6iluxolusv3" path="res://art/GUI_components/timeBar.webp" id="4_nbl5w"]
+
+[node name="playerTimeBar" type="Control"]
+custom_minimum_size = Vector2(295, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 295.0
+offset_bottom = 40.0
+script = ExtResource("1_xxvsk")
+
+[node name="watch_icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+texture = ExtResource("1_k8ohb")
+
+[node name="timeBar" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(280, 40)
+layout_mode = 0
+offset_left = 45.0
+offset_top = 8.0
+offset_right = 325.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture_under = ExtResource("3_j6eq2")
+texture_progress = ExtResource("4_nbl5w")
+
+[node name="timer" type="Timer" parent="."]
+wait_time = 0.401
+one_shot = true
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

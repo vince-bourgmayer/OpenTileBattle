@@ -1,0 +1,55 @@
+[gd_scene load_steps=5 format=3 uid="uid://d1sogmddulf6u"]
+
+[ext_resource type="Texture2D" uid="uid://b6b74nm1d8op2" path="res://art/GUI_components/powerBar_under.webp" id="1_3tme4"]
+[ext_resource type="Script" path="res://scenes/GUI_component/battle/power_bar.gd" id="1_b62i3"]
+[ext_resource type="Texture2D" uid="uid://bxqualj3vhta4" path="res://art/GUI_components/PowerPointIcon.webp" id="2_2u1lt"]
+[ext_resource type="Texture2D" uid="uid://bibw2qymcua7u" path="res://art/GUI_components/powerBar.webp" id="2_vk84r"]
+
+[node name="Power bar" type="Control"]
+custom_minimum_size = Vector2(295, 50)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_b62i3")
+
+[node name="power_icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(40, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_2u1lt")
+
+[node name="first_bar" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 8.0
+offset_right = 145.0
+offset_bottom = 38.0
+value = 100.0
+texture_under = ExtResource("1_3tme4")
+texture_progress = ExtResource("2_vk84r")
+
+[node name="second_bar" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 0
+offset_left = 155.0
+offset_top = 8.0
+offset_right = 255.0
+offset_bottom = 38.0
+value = 100.0
+texture_under = ExtResource("1_3tme4")
+texture_progress = ExtResource("2_vk84r")
+
+[node name="third_bar" type="TextureProgressBar" parent="."]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 0
+offset_left = 265.0
+offset_top = 8.0
+offset_right = 365.0
+offset_bottom = 38.0
+value = 50.0
+texture_under = ExtResource("1_3tme4")
+texture_progress = ExtResource("2_vk84r")

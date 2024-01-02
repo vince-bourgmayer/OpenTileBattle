@@ -70,6 +70,7 @@ Stage
 	- 6 starting position for player's characters
 	- it can already have been done
 	- it can have restriction to start like character level, or character number
+	- It has a text introduction
 
 Floor
 	- it is subpart of a stage

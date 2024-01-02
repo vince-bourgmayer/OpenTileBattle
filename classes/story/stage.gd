@@ -8,6 +8,7 @@ var bg_path : String # path to background image
 # var reward
 var floor : Array[Floor] = []
 # var restriction
+#var introduction
 
 func _init(_id: int, _title: String):
 	pass
