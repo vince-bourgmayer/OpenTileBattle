@@ -1,6 +1,6 @@
 class_name Squad
 
-const characterClass = preload("res://classes/creature.gd")
+
 @export var squadId : int
 var position1 : Character = null
 var position2 : Character = null

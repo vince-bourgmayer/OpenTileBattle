@@ -1,6 +1,6 @@
 class_name Foe
 
-extends "res://classes/creature.gd"
+extends Creature
 
 
 @export var move : int #number of tile that can be reached

@@ -5,7 +5,6 @@ var squads : Array
 var unlocked_characters: Array
 var isNewPlayer = false
 
-
 func _init():
 	buildSquad()
 	unlocked_characters = []

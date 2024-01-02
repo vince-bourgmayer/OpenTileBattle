@@ -68,6 +68,8 @@ Stage
 	- It has a background image
 	- It has a list of drappable items and recruitable character associated to drop condition & rate
 	- 6 starting position for player's characters
+	- it can already have been done
+	- it can have restriction to start like character level, or character number
 
 Floor
 	- it is subpart of a stage
@@ -202,3 +204,67 @@ Battle Game:
 
 
 	src: https://terrabattle.fandom.com/wiki/Battles
+
+
+
+
+
+How to detect pincer...
+
+
+A: allié
+X: enemy
+-: vide
+
+
+ X A - - - -
+ A - - - - -
+ - - - - - -
+ - - - - - -
+ - - - - - -
+ - - - - - -
+ - - - - - -
+ - - - - - -
+ - - - - - -
+
+
+A: allié
+X: enemy
+-: vide
+
+
+ - - - - - -
+ A X A - - -
+ - - - - - -
+ - - - - - -
+ - A X X X A
+ - - - - - -
+ - - - - - -
+ - - - - - -
+ - - - - - -
+
+
+A: allié
+X: enemy
+-: vide
+
+
+ - - - - - -
+ - - A - - -
+ - - X - - -
+ - - X - - -
+ - - X - - -
+ - - A - - -
+ - - - - - A
+ - - - - - X
+ - - - - - A
+
+
+
+
+
+
+ algo:
+
+ 	For each fighter
+ 		check if other  in same line
