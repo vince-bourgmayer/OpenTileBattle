@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://csnn7xtlkx7mh"]
+
+[ext_resource type="Texture2D" uid="uid://cynfw5cgiq32m" path="res://art/tb-stage-background.jpg" id="1_7ecev"]
+[ext_resource type="Texture2D" uid="uid://bbi386jrplkwb" path="res://art/battle/Battle_grid.webp" id="1_xtqvh"]
+
+[node name="background" type="TextureRect"]
+custom_minimum_size = Vector2(720, 1280)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = ExtResource("1_7ecev")
+expand_mode = 1
+
+[node name="grid" type="TextureRect" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 40.0
+offset_top = 250.0
+offset_right = 679.0
+offset_bottom = 1102.0
+mouse_filter = 2
+texture = ExtResource("1_xtqvh")

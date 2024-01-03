@@ -2,7 +2,6 @@ class_name Creature
 	
 @export var name : String
 @export var hp : int
-@export var maxHP: int
 @export var atk : int
 @export var def : int
 @export var mAtk : int
@@ -22,7 +21,6 @@ const ART_ROOT_PATH : String = "res://art/"
 func _init(name : String, hp : int, atk : int, def : int, mAtk: int, mDef: int, level: int, specy : int, weapon : int, elt : int, rarity: int, portrait: String, art: String):
 	self.name = name
 	self.hp = hp
-	self.maxHP = hp
 	self.atk = atk
 	self.def = def
 	self.mAtk = mAtk

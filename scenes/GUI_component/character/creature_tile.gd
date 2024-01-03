@@ -1,34 +1,23 @@
 extends TextureRect
-signal icon_clicked
-
-var creature : Creature
-var isDisplayed = false
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	if (creature == null):
-		clear()
-	elif (isDisplayed == false):
-		displayCreature()
-	pass
-
 
 func setCreature(creature: Creature):
-	self.creature = creature
-	isDisplayed = false
+	if (creature == null):
+		clear()
+	else:
+		displayCreature(creature)
 
-func displayCreature():
+func displayCreature(creature: Creature):
 	visibility_layer = 1
 	#var texture = Texture2D.new()
 	texture = load(creature.portrait_path)
+	$life_bar.max_value = creature.hp
 	$life_bar.value = creature.hp
-	$life_bar.max_value = creature.maxHP
-	drawEltIcon()
-	drawWeaponIcon()
-	isDisplayed = true
+	drawEltIcon(creature.elt)
+	drawWeaponIcon(creature.weapon)
 
-func drawWeaponIcon():
+func drawWeaponIcon(weapon):
 	var textureDir = "res://art/characters/icon/%s"
-	match (creature.weapon):
+	match (weapon):
 		0:
 			$weapon_icon.texture = load(textureDir % "BowIcon.webp")
 		1:
@@ -38,9 +27,9 @@ func drawWeaponIcon():
 		3:
 			$weapon_icon.texture = load(textureDir % "SwordIcon.webp")
 			
-func drawEltIcon():
+func drawEltIcon(element):
 	var textureDir = "res://art/characters/icon/%s"
-	match (creature.elt):
+	match (element):
 		0:
 			$elt_icon.texture = null
 		1:
@@ -54,10 +43,3 @@ func drawEltIcon():
 			
 func clear():
 	visibility_layer = 0
-	isDisplayed = false
-
-
-func _on_gui_input(event):
-	if (event is InputEventMouseButton and event.pressed):
-		icon_clicked.emit()
-	pass # Replace with function body.

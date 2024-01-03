@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://btfe3uwpf1j64"]
+
+[ext_resource type="PackedScene" uid="uid://csnn7xtlkx7mh" path="res://scenes/GUI_component/battle/battleGrid.tscn" id="1_pf5ix"]
+[ext_resource type="Script" path="res://scenes/battle/battle_scene.gd" id="1_swfl8"]
+[ext_resource type="PackedScene" uid="uid://cey6l1w51bh7p" path="res://scenes/GUI_component/battle/battle_top_bar.tscn" id="2_wfupl"]
+
+[node name="battleScene" type="Node2D"]
+script = ExtResource("1_swfl8")
+
+[node name="GUI" type="CanvasLayer" parent="."]
+
+[node name="grid" parent="GUI" instance=ExtResource("1_pf5ix")]
+
+[node name="battleTopBar" parent="GUI" instance=ExtResource("2_wfupl")]
+offset_right = 720.0
+offset_bottom = 150.0
+
+[node name="creatures" type="CanvasLayer" parent="."]
+layer = 3
