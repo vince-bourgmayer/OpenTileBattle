@@ -51,7 +51,7 @@ func set_no_char():
 
 func on_swapClicked():
 	swap_button_clicked.emit()
-
+	
 func updateJobs():
 	var currentJobId = character.currentJob
 	var jobLvl = lvl_label % character.getJob().level
@@ -88,3 +88,9 @@ func updateJobs():
 			$resumeContainer/jobs/job3.disabled = false
 			$resumeContainer/jobs/job3/job3_lvl.text = jobLvl
 			$resumeContainer/jobs/job3/job3_lvl.visibility_layer = 1
+
+
+func _on_portrait_gui_input(event):
+	if (event is InputEventMouseButton and event.pressed):
+		print("button clicked")
+	pass # Replace with function body.

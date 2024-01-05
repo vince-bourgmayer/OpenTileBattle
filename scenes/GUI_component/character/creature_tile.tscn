@@ -39,5 +39,3 @@ offset_right = 105.0
 offset_bottom = 104.0
 mouse_filter = 2
 expand_mode = 1
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

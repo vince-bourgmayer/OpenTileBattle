@@ -46,7 +46,8 @@ func resolve(foes: Array):
 
 	# Number of pincered unit expected is determined by end of starting pos and beginning of ending pos.
 	# The pos (2,1) is the top left corner, beggining of the tile.
-	if (pincered.size() == (B_pos - A_pos-1)):
+	var pinceredSize = pincered.size()
+	if (pinceredSize> 0 and pinceredSize == (B_pos - A_pos-1)):
 		isPincer = true
 		
 	isResolved = true

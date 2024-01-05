@@ -7,13 +7,7 @@ func _ready():
 	$squad_nav_bar/squad_num_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	$squad_nav_bar/backButton.pressed.connect(self.prevSquad)
 	$squad_nav_bar/nextButton.pressed.connect(self.nextSquad)
-	$squad_char_list/char_1/portrait.icon_clicked.connect(self.on_char_icon_clicked)
-	$squad_char_list/char_2/portrait.icon_clicked.connect(self.on_char_icon_clicked)
-	$squad_char_list/char_3/portrait.icon_clicked.connect(self.on_char_icon_clicked)
-	$squad_char_list/char_4/portrait.icon_clicked.connect(self.on_char_icon_clicked)
-	$squad_char_list/char_5/portrait.icon_clicked.connect(self.on_char_icon_clicked)
-	$squad_char_list/char_6/portrait.icon_clicked.connect(self.on_char_icon_clicked)
-	
+
 	pass # Replace with function body.
 
 
@@ -44,9 +38,6 @@ func prevSquad():
 	else:
 		currentSquadNumber -= 1
 
-
-func on_char_icon_clicked():
-	print("char icon clicked")
 
 func _on_char_1_swap_button_clicked():
 	print("swap char 1")

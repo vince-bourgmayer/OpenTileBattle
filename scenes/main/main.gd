@@ -51,9 +51,10 @@ func openStoryMenu():
 		return
 	else:
 		currentMenu_displayed = menu.STORY
-		print("ipouy")
-		remove_child(mainChild)
-		print("youpi")
+		self.remove_child(mainChild)
+		self.remove_child($navBar)
+		mainChild = load("res://scenes/battle/battle_scene.tscn").instantiate()
+		self.add_child(mainChild)
 	
 	
 func openSquadMenu():

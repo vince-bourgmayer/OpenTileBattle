@@ -132,3 +132,5 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 text = "Swap"
+
+[connection signal="gui_input" from="portrait" to="." method="_on_portrait_gui_input"]
