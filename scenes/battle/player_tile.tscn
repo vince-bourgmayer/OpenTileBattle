@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cw2j1qp8vgkty"]
+
+[ext_resource type="Script" path="res://scenes/battle/player_tile.gd" id="1_agh68"]
+[ext_resource type="PackedScene" uid="uid://cymvq2mn58fh1" path="res://scenes/GUI_component/character/creature_tile.tscn" id="1_y3h8i"]
+[ext_resource type="Texture2D" uid="uid://b0nl0uy8l1y1b" path="res://art/characters/bonna/Bonna_job1_icon.webp" id="2_frc0f"]
+[ext_resource type="Texture2D" uid="uid://c8gdgfik6k2nx" path="res://art/battle/player_tile_button_tex.webp" id="4_601m7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e06cp"]
+size = Vector2(114, 114)
+
+[node name="staticBody" type="StaticBody2D"]
+scale = Vector2(0.93, 0.93)
+input_pickable = true
+script = ExtResource("1_agh68")
+
+[node name="icon" parent="." instance=ExtResource("1_y3h8i")]
+z_index = 1
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 110.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("2_frc0f")
+
+[node name="button" type="Button" parent="."]
+custom_minimum_size = Vector2(106, 106)
+offset_right = 114.0
+offset_bottom = 114.0
+mouse_filter = 1
+keep_pressed_outside = true
+icon = ExtResource("4_601m7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(57, 57)
+shape = SubResource("RectangleShape2D_e06cp")
+
+[connection signal="button_down" from="button" to="." method="_on_button_button_down"]
+[connection signal="button_up" from="button" to="." method="_on_button_button_up"]

@@ -12,8 +12,6 @@ func _init(_order: int):
 func addPlayerFighterPos(position: Vector2):
 	if (playerFighterPos.size() < 6):
 		playerFighterPos.append(position)
-		print("added position: %s" % position)
-		print("fighterPos size: %s" % playerFighterPos.size())
 
 
 func getPlayerFighterPosition(squadOrder: int): #squad order is position of player's creature in the squad

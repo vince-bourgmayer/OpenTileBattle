@@ -2,7 +2,13 @@ extends Control
 var max_time: int 
 const default_max_time = 4
 var started = false
-# Called when the node enters the scene tree for the first time.
+
+var on_timeout_callback : Callable
+
+func set_timeout_callback(callback):
+	on_timeout_callback = callback
+	
+
 func _ready():
 	$timer.wait_time = default_max_time
 	$timeBar.value = 100
@@ -23,9 +29,15 @@ func pauseTimer():
 	
 func resumeTimer():
 	$timer.paused = false
+	
+func finish():
+	$timer.paused = false
+	$timer.stop()
+	$timeBar.value = 0
 
 func _on_timer_timeout():
 	print("Time out")
 	started = false
+	on_timeout_callback.call()
 	
 
