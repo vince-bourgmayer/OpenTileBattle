@@ -4,7 +4,6 @@ var playerUnits: Array
 var foes: Array
 var pincers : Array[Pincer]= []
 
-
 func _init(_allies, _foes):
 	playerUnits = _allies
 	foes = _foes
@@ -32,7 +31,10 @@ func findPincers():
 			resolver.resolve(foes)
 			
 			if resolver.isPincer:
-				unit_pincers.append(Pincer.new(resolver.leaderA, resolver.leaderB))
+				var pincer = Pincer.new(resolver.leaderA, resolver.leaderB, resolver.type)
+				pincer.targets = resolver.pincered
+				unit_pincers.append(pincer)
+				
 			elif resolver.isChain:
 				unit_allies.append(ally)
 					
@@ -47,7 +49,6 @@ func isPincerAlreaadyknown(playerA, playerB, pincers: Array[Pincer]):
 		if item.isFor(playerA, playerB):
 			return true
 	return false
-
 
 func isUnitsAligned(A_pos, B_pos):
 	return A_pos.x == B_pos.x or A_pos.y == B_pos.y

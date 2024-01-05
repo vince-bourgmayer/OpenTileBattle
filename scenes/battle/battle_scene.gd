@@ -28,7 +28,7 @@ func _ready():
 	grid_botRight = Constants.gridOffset+ $GUI/grid/grid.size
 	$GUI/battleTopBar/mainContainer/progressContainer/playerTimeBar.set_timeout_callback(Callable(self, "on_player_timeout"))
 	
-	generateDummyFloor()
+	current_floor = Constants.generateDummyFloor()
 	generateFoesTile()
 	
 	var player  = Player.new() # test only
@@ -42,8 +42,8 @@ func _process(_delta):
 	if (state == gameState.PLAYER_MOVE):
 		moveDraggedNode()
 
-func setSquad(squad: Squad):
-	pass
+#func setSquad(squad: Squad):
+#	pass
 	
 
 func generateFighterTile(fighter: Creature, squadOrder):
@@ -84,7 +84,6 @@ func on_player_dropped(playerTile):
 func on_player_timeout():
 		on_player_dropped(draggedUnit)
 
-
 func resolve_playerMove():
 	print("Resolve player action")
 	state = gameState.PLAYER_RESOLUTION
@@ -92,27 +91,31 @@ func resolve_playerMove():
 	var playerTiles = get_tree().get_nodes_in_group(player_group)
 	var foes = get_tree().get_nodes_in_group(foe_group)
 	
-	PlayerResolver.new(playerTiles, foes).findPincers()
+	var playerResolver = PlayerResolver.new(playerTiles, foes)
+	
+	playerResolver.findPincers()
 	state = gameState.PLAYER_MOVE
-
-
-func generateDummyFloor():
-	current_floor = Floor.new(1)
-	current_floor.addPlayerFighterPos(Vector2(5,5))
-	current_floor.addPlayerFighterPos(Vector2(1,1))
-	current_floor.addPlayerFighterPos(Vector2(3,3))
 	
-	var goblinA = Foe.new("goblin spearman", 75, 12, 10, 3, 5, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
-	var goblinB = Foe.new("goblin swordman", 105, 15, 14, 5, 8, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
-
-	current_floor.foes[Vector2(2,1)] = goblinA
-	current_floor.foes[Vector2(3,1)] = goblinA
-	current_floor.foes[Vector2(4,1)] = goblinA
-	current_floor.foes[Vector2(5,4)] = goblinB
-	current_floor.foes[Vector2(5,3)] = goblinB
+	for pincer in playerResolver.pincers:
+		applyDamage(pincer)
+		
+func applyDamage(pincer: Pincer):
+	pincer.start_pincer.playAttack()
+	pincer.end_pincer.playAttack()
 	
+	for foe in pincer.targets:
+		var startDmg= computeDamage(pincer.start_pincer, foe)
+		foe.applyDmg(startDmg)
+		$GUI/battleTopBar/mainContainer/progressContainer/power_bar.addPower(startDmg/25)
+		var endDmg = computeDamage(pincer.end_pincer, foe)
+		foe.applyDmg(endDmg)
+		$GUI/battleTopBar/mainContainer/progressContainer/power_bar.addPower(endDmg/25)
+		
+		if (!foe.isAlive):
+			foe.playDeath()
 
-
+func computeDamage(src, target):
+	return src.atk - target.def
 	
 func generateFoesTile():
 	for pos in current_floor.foes:

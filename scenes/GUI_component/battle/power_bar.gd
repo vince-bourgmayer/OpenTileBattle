@@ -18,18 +18,19 @@ func consumePowerBar():
 	
 func addPower(amount: int):
 	var bar = getBarToFill()
-	if (barToFill == barCount-1 and bar.value < bar.max_value): # is last bar
+
+	if (barToFill <= barCount-1 and bar.value < bar.max_value): # is last bar
 		bar.value += amount
-	if (bar.value == bar.max_value and barToFill < barCount):
+
+	elif (bar.value == bar.max_value and barToFill < barCount-1):
 		barToFill += 1
 		power_bar_filled.emit()
 	
-	
 func getBarToFill():
-		match (barToFill):
-			0:
-				return $first_bar
-			1: 
-				return $second_bar
-			2:
-				return $third_bar
+	match (barToFill):
+		0:
+			return $first_bar
+		1: 
+			return $second_bar
+		2:
+			return $third_bar

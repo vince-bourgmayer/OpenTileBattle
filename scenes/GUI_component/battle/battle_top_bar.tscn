@@ -31,7 +31,7 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 20
 
-[node name="Power bar" parent="mainContainer/progressContainer" instance=ExtResource("1_pxyod")]
+[node name="power_bar" parent="mainContainer/progressContainer" instance=ExtResource("1_pxyod")]
 layout_mode = 2
 
 [node name="playerTimeBar" parent="mainContainer/progressContainer" instance=ExtResource("2_4ps10")]

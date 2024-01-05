@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bxqualj3vhta4" path="res://art/GUI_components/PowerPointIcon.webp" id="2_2u1lt"]
 [ext_resource type="Texture2D" uid="uid://bibw2qymcua7u" path="res://art/GUI_components/powerBar.webp" id="2_vk84r"]
 
-[node name="Power bar" type="Control"]
+[node name="power_bar" type="Control"]
 custom_minimum_size = Vector2(295, 50)
 layout_mode = 3
 anchors_preset = 15
@@ -29,7 +29,6 @@ offset_left = 45.0
 offset_top = 8.0
 offset_right = 115.0
 offset_bottom = 38.0
-value = 100.0
 texture_under = ExtResource("1_3tme4")
 texture_progress = ExtResource("2_vk84r")
 
@@ -40,7 +39,6 @@ offset_left = 130.0
 offset_top = 8.0
 offset_right = 210.0
 offset_bottom = 38.0
-value = 100.0
 texture_under = ExtResource("1_3tme4")
 texture_progress = ExtResource("2_vk84r")
 
@@ -51,6 +49,5 @@ offset_left = 215.0
 offset_top = 8.0
 offset_right = 295.0
 offset_bottom = 38.0
-value = 50.0
 texture_under = ExtResource("1_3tme4")
 texture_progress = ExtResource("2_vk84r")
