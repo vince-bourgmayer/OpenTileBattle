@@ -58,3 +58,9 @@ func _after_attackAnim():
 	attackTimer.stop()
 	playingAttackAnim = false
 	scale = Vector2(0.93,0.93)
+
+func _on_area_2d_area_entered(area):
+	var area_parent = area.get_parent()
+	callback_dic["ally_collision"].call(self, area_parent)
+	pass # Replace with function body.
+

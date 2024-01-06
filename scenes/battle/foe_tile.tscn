@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c30kauqbfkxd0"]
+[gd_scene load_steps=4 format=3 uid="uid://c30kauqbfkxd0"]
 
 [ext_resource type="Script" path="res://scenes/battle/foe_tile.gd" id="1_h3xc3"]
 [ext_resource type="PackedScene" uid="uid://cymvq2mn58fh1" path="res://scenes/GUI_component/character/creature_tile.tscn" id="2_cjflc"]
-[ext_resource type="Texture2D" uid="uid://b0nl0uy8l1y1b" path="res://art/characters/bonna/Bonna_job1_icon.webp" id="3_hye43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e06cp"]
 size = Vector2(105.376, 105.376)
@@ -21,8 +20,8 @@ offset_top = 4.0
 offset_right = 110.0
 offset_bottom = 110.0
 mouse_filter = 2
-texture = ExtResource("3_hye43")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(56.9893, 56.9893)
+scale = Vector2(0.95, 0.95)
 shape = SubResource("RectangleShape2D_e06cp")

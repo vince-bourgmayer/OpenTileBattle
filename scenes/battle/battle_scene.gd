@@ -19,14 +19,16 @@ var state : gameState
 
 var playerTile_callback = {
 	"drag" : Callable(self, "on_player_dragged"),
-	"drop" : Callable(self, "on_player_dropped")
+	"drop" : Callable(self, "on_player_dropped"),
+	"ally_collision" : Callable(self, "on_ally_collision")
 }
 
 
 	
 func _process(_delta):
 	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
-		moveDraggedNode(_delta)
+		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
+		movePlayerTile(_delta, movingUnit, mousePosition)
 		
 	elif (state == gameState.NPC_MOVE):
 		if movingUnit.position == movingUnit.destination:
@@ -73,18 +75,17 @@ func generate_npc_tiles(battle_floor: Floor):
 
 # ============ Player turn  =====================
 
-func moveDraggedNode(_delta):
-	if (isDraggedUnit):
-		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset, grid_botRight-Constants.tileSize) 
-		var current_pos = movingUnit.global_position
+func movePlayerTile(_delta, unit: PlayerTile, destination : Vector2):
+	if (isDraggedUnit): 
+		var current_pos = unit.global_position
 		
-		var distance : float = current_pos.distance_to(mousePosition)
-		var direction: Vector2 = current_pos.direction_to(mousePosition)
+		var distance : float = current_pos.distance_to(destination)
+		var direction: Vector2 = current_pos.direction_to(destination)
 		var speed = distance/_delta
 
 		var velocity = direction * speed
-		movingUnit.velocity = velocity
-		movingUnit.move_and_slide()
+		unit.velocity = velocity
+		unit.move_and_slide()
 
 		
 func on_player_dragged(playerTile):
@@ -99,10 +100,32 @@ func on_player_dropped():
 		var cell_pos = Constants.get_grid_cell_for_pos(movingUnit.position)
 		movingUnit.position = Constants.get_pos_from_grid_cell(cell_pos)
 		
-		movingUnit = null
 		isDraggedUnit = false
 		$GUI/battleTopBar.finish_player_time_bar()
 		resolve_playerMove()
+		
+		
+func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
+	if movingUnit == allyA:
+
+		print("	> %s got collision with %s" % [movingUnit.creaName, allyB.creaName])
+		var movingUnit_pos = allyA.position
+		var cell_pos = Constants.get_grid_cell_for_pos(movingUnit_pos)
+		var collider_pos = Constants.get_grid_cell_for_pos(allyB.position)
+		if (cell_pos == collider_pos):
+			print("		> Collision detected on same cell %s" % cell_pos)
+			var mouse_position = get_viewport().get_mouse_position()
+			var direction = mouse_position.direction_to(movingUnit_pos).round()
+			print("direction: %s" % direction)
+			allyB.position = Constants.get_pos_from_grid_cell(collider_pos + direction).clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
+		else:
+			var converted_cell_pos = Constants.get_pos_from_grid_cell(cell_pos).clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
+			allyB.position = converted_cell_pos
+		
+		
+
+	
+		
 
 func resolve_playerMove():
 	state = gameState.PLAYER_RESOLUTION
@@ -116,10 +139,11 @@ func resolve_playerMove():
 
 	for pincer in playerResolver.pincers:
 		apply_pincer_damage(pincer)
-		
+	
+	movingUnit = null
 	state = gameState.NPC_MOVE
 	print("\n|--------FOES TURN--------|\n")
-	setNextMovingFoe()
+	#setNextMovingFoe()
 		
 	state = gameState.PLAYER_MOVE
 	
