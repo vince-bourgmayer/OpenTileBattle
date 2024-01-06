@@ -1,87 +1,33 @@
 #extends StaticBody2D
-extends CharacterBody2D
-signal died
+extends BattleTile
 
-var callable_dic
 # Called when the node enters the scene tree for the first time.
 static var counter = 0
 
-var creaName
-var id
-var atk
-var def
-var mAtk
-var mDef
-var isAlive = true
-
-# 'anim' For test
-var playingDeathAnim = false
-var playingAttackAnim = false
-var dyingTimer = Timer.new()
-var attackTimer = Timer.new()
+var destination: Vector2
+var move : int
 
 func _ready():
 	counter += 1
-	dyingTimer.wait_time = 1
-	dyingTimer.connect("timeout", Callable(_after_deathAnim))
-	add_child(dyingTimer)
-	attackTimer.wait_time = 1
-	attackTimer.connect("timeout", Callable(_after_attackAnim))
-	add_child(attackTimer)
+	destination = position
 
 func _process(_delta):
-	if playingDeathAnim:
-		modulate.a = dyingTimer.time_left / dyingTimer.wait_time
-		
-	if playingAttackAnim:
-		var multiplier = 1
-		if (attackTimer.time_left < 0.70):
-			multiplier = -1
-		var scaleRatio = multiplier * (attackTimer.time_left / attackTimer.wait_time)/120 +1
-		apply_scale(Vector2(scaleRatio, scaleRatio))
-		#apply_scale(Vector2(scaleValue, scaleValue))
-
-func set_callables(dictionnary):
-	callable_dic = dictionnary
-
-func disable(val):
-	$button.disabled = val
+	super._process(_delta)
 	
-func setCreature(creature: Foe):
-	$icon.setCreature(creature)
+func setCreature(foe: Creature):
+	$icon.setCreature(foe)
 	id = counter
-	creaName = creature.name
-	atk = creature.atk
-	def = creature.def
-	mAtk = creature.mAtk
-	mDef = creature.mDef
+	super.setCreature(foe)
+
 	
-func applyDmg(dmg):
+func applyDmg(dmg: int):
 	if !isAlive:
 		return
-		print("	---> %s %s took %s dmg" % [creaName, id, dmg])
-	
-	$icon/life_bar.value -= dmg
-	if $icon/life_bar.value == 0:
-		isAlive = false
-		self.set_collision_layer(0)		
 		
-func playAttack():
-	attackTimer.start()
-	playingAttackAnim = true
+	super.applyDmg(dmg)
+	print("	---> %s %s took %s dmg" % [creaName, id, dmg])
 	
-func playDeath():
-	dyingTimer.start()
-	playingDeathAnim = true
-	
-	
-func _after_deathAnim():
-	dyingTimer.stop()
-	playingDeathAnim = false
-	visible = false
-	modulate.a = 1
-	
-func _after_attackAnim():
-	attackTimer.stop()
-	playingAttackAnim = false
-	scale = Vector2(0.93,0.93)
+	$icon/life_bar.value = hp
+	if !isAlive:
+		set_collision_layer(0)
+		playDeathEffect()

@@ -8,8 +8,9 @@ var foe_tile = load("res://scenes/battle/foe_tile.tscn")
 #var grid_topleft  #replaced by constants
 var grid_botRight
 
-var draggedUnit
+var movingUnit
 var isDraggedUnit = false
+var movingFoeIndex = 0
 
 var stage: Stage
 var current_floor 
@@ -42,6 +43,13 @@ func _ready():
 func _process(_delta):
 	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
 		moveDraggedNode(_delta)
+	elif (state == gameState.NPC_MOVE):
+		if movingUnit.position == movingUnit.destination:
+			movingFoeIndex += 1
+			setNextMovingFoe()
+		else:
+			moveFoe(_delta)
+		
 
 #func setSquad(squad: Squad):
 #	pass
@@ -63,37 +71,36 @@ func convert_tilePos(tile, position: Vector2):
 func moveDraggedNode(_delta):
 	if (isDraggedUnit):
 		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset, grid_botRight-Constants.tileSize) 
-		var current_pos = draggedUnit.global_position
+		var current_pos = movingUnit.global_position
 		
 		var distance : float = current_pos.distance_to(mousePosition)
 		var direction: Vector2 = current_pos.direction_to(mousePosition)
 		
 		var speed = distance/_delta
 
-
 		var velocity = direction * speed
-		draggedUnit.velocity = velocity
-		draggedUnit.move_and_slide()
+		movingUnit.velocity = velocity
+		movingUnit.move_and_slide()
 
 		
 
 func on_player_dragged(playerTile):
 	if (state == gameState.PLAYER_MOVE and !isDraggedUnit):
 		print("dragging unit %s" % playerTile)
-		draggedUnit = playerTile
+		movingUnit = playerTile
 		isDraggedUnit = true
 		$GUI/battleTopBar/mainContainer/progressContainer/playerTimeBar.startTimer()
 	
 func on_player_dropped(playerTile):
 	if (isDraggedUnit):
-		convert_tilePos(draggedUnit, Constants.get_grid_cell_for_pos(draggedUnit.position))
-		draggedUnit = null
+		convert_tilePos(movingUnit, Constants.get_grid_cell_for_pos(movingUnit.position))
+		movingUnit = null
 		isDraggedUnit = false
 		$GUI/battleTopBar/mainContainer/progressContainer/playerTimeBar.finish()
 		resolve_playerMove()
 
 func on_player_timeout():
-		on_player_dropped(draggedUnit)
+		on_player_dropped(movingUnit)
 
 func resolve_playerMove():
 	print("Resolve player action")
@@ -110,8 +117,12 @@ func resolve_playerMove():
 		applyDamage(pincer)
 		
 	state = gameState.NPC_MOVE
-	
+	print("--FOES TURN--")
+	setNextMovingFoe()
 		
+	state = gameState.PLAYER_MOVE
+	
+
 func applyDamage(pincer: Pincer):
 	pincer.start_pincer.playAttack()
 	pincer.end_pincer.playAttack()
@@ -124,8 +135,6 @@ func applyDamage(pincer: Pincer):
 		foe.applyDmg(endDmg)
 		$GUI/battleTopBar/mainContainer/progressContainer/power_bar.addPower(endDmg/25)
 		
-		if (!foe.isAlive):
-			foe.playDeath()
 
 func computeDamage(src, target):
 	return src.atk - target.def
@@ -138,3 +147,55 @@ func generateFoesTile():
 		tile.add_to_group(foe_group)
 		convert_tilePos(tile, startPos)
 		$creatures.add_child(tile)
+		
+func setNextMovingFoe():
+	print("setNextMovingFoe")
+	var foes = get_tree().get_nodes_in_group(foe_group)
+	var foesCount = foes.size()
+	print("foesCount = %s" % foesCount)
+
+	while movingFoeIndex < foesCount -1:
+		print("movingFoeIndex = %s" % movingFoeIndex)
+		var foe = foes[movingFoeIndex]
+		if !foe.isAlive:
+			print("		-> is dead")
+			movingFoeIndex += 1
+			continue
+		else:
+			print("		-> start_pos: %s" % foe.position)
+			foe.destination = generate_foe_destination(foe.position)
+			print("		-> will move to: %s" % foe.destination)
+			movingUnit = foe
+			#=
+			break
+			
+	if movingFoeIndex >= foesCount:
+		print("moved ALl unit")
+		state = gameState.PLAYER_MOVE
+		movingFoeIndex = 0
+		
+func generate_foe_destination(start_position: Vector2):
+	var current_pos = start_position
+	var cell_pos = Constants.get_grid_cell_for_pos(current_pos)
+	var cell_destination = cell_pos
+	
+	cell_destination += Constants.get_random_dir() * 4
+	var destination = (cell_destination * Constants.tileSize + Constants.grid_cell_separator) +Constants.gridOffset
+	#destination.clamp()
+	return destination
+		
+func moveFoe(_delta):
+	print("move foe")
+	if movingUnit == null:
+		return
+	var target = movingUnit.destination
+	var current_pos = movingUnit.global_position
+	
+	var distance : float = current_pos.distance_to(target)
+	var direction: Vector2 = current_pos.direction_to(target)
+	
+	var speed = distance/_delta
+
+	var velocity = direction * speed
+	movingUnit.velocity = velocity
+	movingUnit.move_and_slide()
