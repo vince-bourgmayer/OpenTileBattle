@@ -53,8 +53,8 @@ func openStoryMenu():
 		self.remove_child(mainChild)
 		self.remove_child($navBar)
 		mainChild = load("res://scenes/battle/battle_scene.tscn").instantiate()
-		var floor = Constants.generateDummyFloor()
-		mainChild.setInput(floor, player.getSquad(0))
+		var stage = Constants.generateDummyStage()
+		mainChild.setInput(stage, player.getSquad(0))
 		self.add_child(mainChild)
 	
 	

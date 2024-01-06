@@ -14,8 +14,9 @@ var movingFoeIndex = 0
 
 var stage: Stage
 
-enum gameState {PLAYER_MOVE, PLAYER_RESOLUTION, NPC_MOVE, NPC_RESOLUTION}
+enum gameState {PLAYER_MOVE, PLAYER_RESOLUTION, NPC_MOVE, NPC_RESOLUTION, PREPARATION}
 var state : gameState
+var currentFloor = 0
 
 var playerTile_callback = {
 	"drag" : Callable(self, "on_player_dragged"),
@@ -23,8 +24,6 @@ var playerTile_callback = {
 	"ally_collision" : Callable(self, "on_ally_collision")
 }
 
-
-	
 func _process(_delta):
 	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
 		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
@@ -45,9 +44,33 @@ func _ready():
 	grid_botRight = Constants.gridOffset+ $GUI/grid/grid.size
 	$GUI/battleTopBar.set_player_turn_timer_callback(Callable(self, "on_player_dropped"))
 
-func setInput(battle_floor : Floor, squad: Squad):
+func setInput(stage : Stage, squad: Squad):
+	self.stage = stage
+	var battle_floor = stage.get_battle_floor(currentFloor)
 	generate_player_tiles(squad, battle_floor)
 	generate_npc_tiles(battle_floor)
+
+func load_next_floor():
+	state = gameState.PREPARATION
+	
+	for foe in get_tree().get_nodes_in_group(foe_group):
+		$creatures.remove_child(foe)
+		
+	#await get_tree().create_timer(2).timeout
+	currentFloor += 1
+	
+	var battle_floor : Floor= stage.get_battle_floor(currentFloor)
+	if battle_floor == null:
+		print("\n\n====> VICTORY <====")
+		return
+		
+	for player in get_tree().get_nodes_in_group(player_group):
+		battle_floor.foes.erase(Constants.get_grid_cell_for_pos(player.position))
+		
+	generate_npc_tiles(battle_floor)
+	
+	state = gameState.PLAYER_MOVE
+	
 
 func generate_player_tiles(squad: Squad, battle_floor: Floor):
 	for n in Constants.maxCharPerSquad-1:
@@ -71,6 +94,7 @@ func generate_npc_tiles(battle_floor: Floor):
 		var startPos = pos
 		tile.add_to_group(foe_group)
 		tile.position = Constants.get_pos_from_grid_cell(startPos)
+		#await get_tree().create_timer(0.5).timeout
 		$creatures.add_child(tile)
 
 # ============ Player turn  =====================
@@ -122,10 +146,6 @@ func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
 			var converted_cell_pos = Constants.get_pos_from_grid_cell(cell_pos).clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
 			allyB.position = converted_cell_pos
 		
-		
-
-	
-		
 
 func resolve_playerMove():
 	state = gameState.PLAYER_RESOLUTION
@@ -141,12 +161,24 @@ func resolve_playerMove():
 		apply_pincer_damage(pincer)
 	
 	movingUnit = null
+
+	if !is_some_foes_alive(foes):
+		print("\n\n===> Floor completed <===\n")
+		load_next_floor()
+		return
+	
+	
 	state = gameState.NPC_MOVE
 	print("\n|--------FOES TURN--------|\n")
 	#setNextMovingFoe()
 		
 	state = gameState.PLAYER_MOVE
 	
+func is_some_foes_alive(foes):
+	for foe in foes:
+		if foe.isAlive:
+			return true
+
 
 func apply_pincer_damage(pincer: Pincer):
 	pincer.start_pincer.playAttack()

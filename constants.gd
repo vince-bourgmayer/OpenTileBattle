@@ -49,19 +49,45 @@ const lifeBar_darkBlue = "30656d"
 const lifeBar_lightblue = "3dd0e4"
 # --- test ---
 
-func generateDummyFloor():
+
+
+func generateDummyStage():
+	var stage = Stage.new(1, "Is he here ?")
+	
+	stage.add_floor(generateDummyFloor(true))
+	stage.add_floor(generateDummyFloor(false))
+	stage.add_floor(generateDummyFloor(false))
+	
+	return stage
+
+func generateDummyFloor(isFirst: bool):
 	var floor = Floor.new(1)
-	floor.addPlayerFighterPos(Vector2(5,5))
-	floor.addPlayerFighterPos(Vector2(1,1))
-	floor.addPlayerFighterPos(Vector2(3,3))
+	var StarterPos = []
+	
+	if isFirst:
+		StarterPos.append_array([Vector2(5,5), Vector2(1,1), Vector2(1,3)])
+		floor.addPlayerFighterPos(StarterPos[0])
+		floor.addPlayerFighterPos(StarterPos[1])
+		floor.addPlayerFighterPos(StarterPos[2])
 	
 	var goblinA = Foe.new("goblin spearman", 75, 12, 10, 3, 5, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
 	var goblinB = Foe.new("goblin swordman", 105, 15, 14, 5, 8, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
 
-	floor.foes[Vector2(2,1)] = goblinA
-	floor.foes[Vector2(3,1)] = goblinA
-	floor.foes[Vector2(4,1)] = goblinB
-	floor.foes[Vector2(5,4)] = goblinB
-	floor.foes[Vector2(5,3)] = goblinB
+	var foe_number = (randi()% 11 )+4
 	
+	var counter = 0
+	while counter < foe_number:
+		var type
+		if counter %2 > 0:
+			type = goblinA
+		else:
+			type = goblinB
+			
+		var x = randi()%5
+		var y = randi()%7
+		var vector = Vector2(x, y)
+		if ! StarterPos.has(vector):
+			floor.foes[vector] = type
+			StarterPos.append(vector)
+			counter += 1
 	return floor
