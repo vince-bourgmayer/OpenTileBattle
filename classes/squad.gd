@@ -14,30 +14,30 @@ func _init():
 	
 func changeCharacter(position: int, character: Character):
 	match(position):
-		1:
+		0:
 			position1 = character
-		2:
+		1:
 			position2 = character
-		3:
+		2:
 			position3 = character
-		4:
+		3:
 			position4 = character
-		5:
+		4:
 			position5 = character
-		6:
+		5:
 			position6 = character
 
 func getCharacter(position: int):
 	match(position):
-		1:
+		0:
 			return position1
-		2:
+		1:
 			return position2
-		3:
+		2:
 			return position3
-		4:
+		3:
 			return position4
-		5:
+		4:
 			return position5
-		6:
+		5:
 			return position6

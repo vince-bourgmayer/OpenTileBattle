@@ -38,6 +38,4 @@ func finish():
 func _on_timer_timeout():
 	print("Time out")
 	started = false
-	on_timeout_callback.call()
-	
-
+	on_timeout_callback.call()	

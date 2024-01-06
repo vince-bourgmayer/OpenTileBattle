@@ -18,7 +18,6 @@ func setCreature(foe: Creature):
 	$icon.setCreature(foe)
 	id = counter
 	super.setCreature(foe)
-
 	
 func applyDmg(dmg: int):
 	if !isAlive:

@@ -15,7 +15,10 @@ func get_grid_cell_for_pos(pos: Vector2):
 	var formatted_position = pos-gridOffset
 	return (formatted_position / Constants.tileSize).round()
 	
-func getRandomDir():
+func get_pos_from_grid_cell(cell: Vector2):
+	return (cell * Constants.tileSize + Constants.grid_cell_separator) +Constants.gridOffset
+	
+func get_random_dir():
 	var result : Vector2 = Vector2.ZERO
 	var random_number = randi()% 4
 	match(random_number):
@@ -28,6 +31,9 @@ func getRandomDir():
 		3:
 			result.y -= 1
 	return result
+	
+func compute_damage(attacker: BattleTile, defender: BattleTile):
+	return attacker.atk - defender.def
 
 # --- enum ---
 

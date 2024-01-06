@@ -10,7 +10,6 @@ var player = Player.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	init_nav_bar()
-	print("Hello baby")
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -54,6 +53,8 @@ func openStoryMenu():
 		self.remove_child(mainChild)
 		self.remove_child($navBar)
 		mainChild = load("res://scenes/battle/battle_scene.tscn").instantiate()
+		var floor = Constants.generateDummyFloor()
+		mainChild.setInput(floor, player.getSquad(0))
 		self.add_child(mainChild)
 	
 	

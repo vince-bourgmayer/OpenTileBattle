@@ -48,7 +48,7 @@ func _on_button_button_down():
 
 func _on_button_button_up():
 	if (callback_dic != null):
-		callback_dic["drop"].call(self)
+		callback_dic["drop"].call()
 		
 func playAttack():
 	attackTimer.start()

@@ -13,7 +13,6 @@ var isDraggedUnit = false
 var movingFoeIndex = 0
 
 var stage: Stage
-var current_floor 
 
 enum gameState {PLAYER_MOVE, PLAYER_RESOLUTION, NPC_MOVE, NPC_RESOLUTION}
 var state : gameState
@@ -23,50 +22,56 @@ var playerTile_callback = {
 	"drop" : Callable(self, "on_player_dropped")
 }
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	state = gameState.PLAYER_MOVE
-	#grid_topleft = $GUI/grid/grid.position # 40, 250
-	grid_botRight = Constants.gridOffset+ $GUI/grid/grid.size
-	$GUI/battleTopBar/mainContainer/progressContainer/playerTimeBar.set_timeout_callback(Callable(self, "on_player_timeout"))
+
 	
-	current_floor = Constants.generateDummyFloor()
-	generateFoesTile()
-	
-	var player  = Player.new() # test only
-
-	generateFighterTile(player.getSquad(0).getCharacter(1).getJob(), 0)
-	generateFighterTile(player.getSquad(0).getCharacter(2).getJob(), 1)
-	generateFighterTile(player.getSquad(0).getCharacter(3).getJob(), 2)
-
-
 func _process(_delta):
 	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
 		moveDraggedNode(_delta)
+		
 	elif (state == gameState.NPC_MOVE):
 		if movingUnit.position == movingUnit.destination:
 			movingFoeIndex += 1
 			setNextMovingFoe()
 		else:
 			moveFoe(_delta)
-		
 
-#func setSquad(squad: Squad):
-#	pass
+# ============ Initialization =====================
 
-func generateFighterTile(fighter: Creature, squadOrder):
-	var tile = player_tile.instantiate()
-	tile.setCreature(fighter)
-	tile.set_callables(playerTile_callback)
-	tile.add_to_group(player_group)
-	var startPos = current_floor.getPlayerFighterPosition(squadOrder)
-	
-	convert_tilePos(tile, startPos)
-	$creatures.add_child(tile)
+func _ready():
+	state = gameState.PLAYER_MOVE
+	#grid_topleft = $GUI/grid/grid.position # 40, 250
+	grid_botRight = Constants.gridOffset+ $GUI/grid/grid.size
+	$GUI/battleTopBar.set_player_turn_timer_callback(Callable(self, "on_player_dropped"))
 
-func convert_tilePos(tile, position: Vector2):
-	var realPosition = (position * Constants.tileSize + Constants.grid_cell_separator) +Constants.gridOffset
-	tile.position = realPosition
+func setInput(battle_floor : Floor, squad: Squad):
+	generate_player_tiles(squad, battle_floor)
+	generate_npc_tiles(battle_floor)
+
+func generate_player_tiles(squad: Squad, battle_floor: Floor):
+	for n in Constants.maxCharPerSquad-1:
+		var character = squad.getCharacter(n)
+		if character == null: 
+			continue
+		else:
+			var fighter = character.getJob()
+			var tile = player_tile.instantiate()
+			tile.setCreature(fighter)
+			tile.set_callables(playerTile_callback)
+			tile.add_to_group(player_group)
+			var startPos = battle_floor.getPlayerFighterPosition(n)
+			tile.position = Constants.get_pos_from_grid_cell(startPos)
+			$creatures.add_child(tile)
+
+func generate_npc_tiles(battle_floor: Floor):
+	for pos in battle_floor.foes:
+		var tile = foe_tile.instantiate()
+		tile.setCreature(battle_floor.foes[pos])
+		var startPos = pos
+		tile.add_to_group(foe_group)
+		tile.position = Constants.get_pos_from_grid_cell(startPos)
+		$creatures.add_child(tile)
+
+# ============ Player turn  =====================
 
 func moveDraggedNode(_delta):
 	if (isDraggedUnit):
@@ -75,7 +80,6 @@ func moveDraggedNode(_delta):
 		
 		var distance : float = current_pos.distance_to(mousePosition)
 		var direction: Vector2 = current_pos.direction_to(mousePosition)
-		
 		var speed = distance/_delta
 
 		var velocity = direction * speed
@@ -83,29 +87,26 @@ func moveDraggedNode(_delta):
 		movingUnit.move_and_slide()
 
 		
-
 func on_player_dragged(playerTile):
 	if (state == gameState.PLAYER_MOVE and !isDraggedUnit):
 		print("dragging unit %s" % playerTile)
 		movingUnit = playerTile
 		isDraggedUnit = true
-		$GUI/battleTopBar/mainContainer/progressContainer/playerTimeBar.startTimer()
+		$GUI/battleTopBar.start_player_turn_timer()
 	
-func on_player_dropped(playerTile):
+func on_player_dropped():
 	if (isDraggedUnit):
-		convert_tilePos(movingUnit, Constants.get_grid_cell_for_pos(movingUnit.position))
+		var cell_pos = Constants.get_grid_cell_for_pos(movingUnit.position)
+		movingUnit.position = Constants.get_pos_from_grid_cell(cell_pos)
+		
 		movingUnit = null
 		isDraggedUnit = false
-		$GUI/battleTopBar/mainContainer/progressContainer/playerTimeBar.finish()
+		$GUI/battleTopBar.finish_player_time_bar()
 		resolve_playerMove()
 
-func on_player_timeout():
-		on_player_dropped(movingUnit)
-
 func resolve_playerMove():
-	print("Resolve player action")
 	state = gameState.PLAYER_RESOLUTION
-
+	print("\n|--------PLAYER RESOLUTION--------|\n")
 	var playerTiles = get_tree().get_nodes_in_group(player_group)
 	var foes = get_tree().get_nodes_in_group(foe_group)
 	
@@ -114,40 +115,29 @@ func resolve_playerMove():
 	playerResolver.findPincers()
 
 	for pincer in playerResolver.pincers:
-		applyDamage(pincer)
+		apply_pincer_damage(pincer)
 		
 	state = gameState.NPC_MOVE
-	print("--FOES TURN--")
+	print("\n|--------FOES TURN--------|\n")
 	setNextMovingFoe()
 		
 	state = gameState.PLAYER_MOVE
 	
 
-func applyDamage(pincer: Pincer):
+func apply_pincer_damage(pincer: Pincer):
 	pincer.start_pincer.playAttack()
 	pincer.end_pincer.playAttack()
 	
 	for foe in pincer.targets:
-		var startDmg= computeDamage(pincer.start_pincer, foe)
+		var startDmg= Constants.compute_damage(pincer.start_pincer, foe)
 		foe.applyDmg(startDmg)
-		$GUI/battleTopBar/mainContainer/progressContainer/power_bar.addPower(startDmg/25)
-		var endDmg = computeDamage(pincer.end_pincer, foe)
+		$GUI/battleTopBar.add_power(startDmg/20)
+		var endDmg = Constants.compute_damage(pincer.end_pincer, foe)
 		foe.applyDmg(endDmg)
-		$GUI/battleTopBar/mainContainer/progressContainer/power_bar.addPower(endDmg/25)
-		
-
-func computeDamage(src, target):
-	return src.atk - target.def
+		$GUI/battleTopBar.add_power(endDmg/20)
 	
-func generateFoesTile():
-	for pos in current_floor.foes:
-		var tile = foe_tile.instantiate()
-		tile.setCreature(current_floor.foes[pos])
-		var startPos = pos
-		tile.add_to_group(foe_group)
-		convert_tilePos(tile, startPos)
-		$creatures.add_child(tile)
-		
+# ============ NPC turn  =====================
+	
 func setNextMovingFoe():
 	print("setNextMovingFoe")
 	var foes = get_tree().get_nodes_in_group(foe_group)

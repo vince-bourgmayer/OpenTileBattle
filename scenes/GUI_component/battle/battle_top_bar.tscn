@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://cey6l1w51bh7p"]
+[gd_scene load_steps=8 format=3 uid="uid://cey6l1w51bh7p"]
 
+[ext_resource type="Script" path="res://scenes/GUI_component/battle/battle_top_bar.gd" id="1_of3xf"]
 [ext_resource type="PackedScene" uid="uid://d1sogmddulf6u" path="res://scenes/GUI_component/battle/power_bar.tscn" id="1_pxyod"]
 [ext_resource type="PackedScene" uid="uid://copvud557kxb3" path="res://scenes/GUI_component/battle/player_time_bar.tscn" id="2_4ps10"]
 [ext_resource type="Texture2D" uid="uid://cp5himsgtbgvx" path="res://art/CoinsIcon.webp" id="3_bpb36"]
@@ -13,6 +14,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_of3xf")
 
 [node name="mainContainer" type="HBoxContainer" parent="."]
 z_index = 1

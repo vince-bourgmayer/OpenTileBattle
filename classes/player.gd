@@ -38,7 +38,6 @@ func prepareDummySquad():
 	var samatha = Character.new(0,"Samatha",  [samatha_job1, samatha_job2, samatha_job3], 0)
 	
 
-	
 	var bonna_job1 = Job.new("the Idol", 4208, 50, 48, 47, 59, 53, 4, 2, 3, 4, "characters/bonna/Bonna_job1_icon.webp", "", 3.2, true)
 	bonna_job1.addXp(126333)
 	var bonna_job2 = Job.new("the Lyricist", 470, 50, 48, 47, 59, 2, 4, 2, 3, 4, "characters/bonna/Bonna_job2_icon.webp", "", 0.8, true)
@@ -60,8 +59,8 @@ func prepareDummySquad():
 	unlocked_characters.append(mizury)
 	unlocked_characters.append(high_elf)
 	
-	getSquad(0).changeCharacter(1, samatha)
-	getSquad(0).changeCharacter(2, bonna)
-	getSquad(0).changeCharacter(3, mizury)
-	getSquad(1).changeCharacter(1, bonna)
-	getSquad(1).changeCharacter(2, high_elf)
+	getSquad(0).changeCharacter(0, samatha)
+	getSquad(0).changeCharacter(1, bonna)
+	getSquad(0).changeCharacter(2, mizury)
+	getSquad(1).changeCharacter(0, bonna)
+	getSquad(1).changeCharacter(1, high_elf)

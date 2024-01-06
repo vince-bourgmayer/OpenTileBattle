@@ -1,6 +1,4 @@
-class_name Foe
-
-extends Creature
+class_name Foe extends Creature
 
 
 @export var move : int #number of tile that can be reached
