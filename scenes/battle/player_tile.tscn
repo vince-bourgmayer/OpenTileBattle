@@ -6,10 +6,11 @@
 [ext_resource type="Texture2D" uid="uid://c8gdgfik6k2nx" path="res://art/battle/player_tile_button_tex.webp" id="4_601m7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e06cp"]
-size = Vector2(114, 114)
+size = Vector2(105.376, 105.376)
 
-[node name="staticBody" type="StaticBody2D"]
+[node name="staticBody" type="CharacterBody2D"]
 scale = Vector2(0.93, 0.93)
+collision_mask = 2
 input_pickable = true
 script = ExtResource("1_agh68")
 
@@ -31,7 +32,7 @@ keep_pressed_outside = true
 icon = ExtResource("4_601m7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(57, 57)
+position = Vector2(56.9893, 56.9893)
 shape = SubResource("RectangleShape2D_e06cp")
 
 [connection signal="button_down" from="button" to="." method="_on_button_button_down"]

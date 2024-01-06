@@ -3,7 +3,8 @@ extends Node2D
 const foe_group = "foes"
 const player_group = "player"
 
-var creature_tile = load("res://scenes/battle/player_tile.tscn")
+var player_tile = load("res://scenes/battle/player_tile.tscn")
+var foe_tile = load("res://scenes/battle/foe_tile.tscn")
 #var grid_topleft  #replaced by constants
 var grid_botRight
 
@@ -39,15 +40,14 @@ func _ready():
 
 
 func _process(_delta):
-	if (state == gameState.PLAYER_MOVE):
-		moveDraggedNode()
+	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
+		moveDraggedNode(_delta)
 
 #func setSquad(squad: Squad):
 #	pass
-	
 
 func generateFighterTile(fighter: Creature, squadOrder):
-	var tile = creature_tile.instantiate()
+	var tile = player_tile.instantiate()
 	tile.setCreature(fighter)
 	tile.set_callables(playerTile_callback)
 	tile.add_to_group(player_group)
@@ -60,10 +60,21 @@ func convert_tilePos(tile, position: Vector2):
 	var realPosition = (position * Constants.tileSize + Constants.grid_cell_separator) +Constants.gridOffset
 	tile.position = realPosition
 
-func moveDraggedNode():
+func moveDraggedNode(_delta):
 	if (isDraggedUnit):
-		var mousePosition = get_viewport().get_mouse_position()
-		draggedUnit.position = (mousePosition-Constants.tileSize/2).clamp(Constants.gridOffset, grid_botRight-Constants.tileSize) 
+		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset, grid_botRight-Constants.tileSize) 
+		var current_pos = draggedUnit.global_position
+		
+		var distance : float = current_pos.distance_to(mousePosition)
+		var direction: Vector2 = current_pos.direction_to(mousePosition)
+		
+		var speed = distance/_delta
+
+
+		var velocity = direction * speed
+		draggedUnit.velocity = velocity
+		draggedUnit.move_and_slide()
+
 		
 
 func on_player_dragged(playerTile):
@@ -94,10 +105,12 @@ func resolve_playerMove():
 	var playerResolver = PlayerResolver.new(playerTiles, foes)
 	
 	playerResolver.findPincers()
-	state = gameState.PLAYER_MOVE
-	
+
 	for pincer in playerResolver.pincers:
 		applyDamage(pincer)
+		
+	state = gameState.NPC_MOVE
+	
 		
 func applyDamage(pincer: Pincer):
 	pincer.start_pincer.playAttack()
@@ -119,7 +132,7 @@ func computeDamage(src, target):
 	
 func generateFoesTile():
 	for pos in current_floor.foes:
-		var tile = creature_tile.instantiate()
+		var tile = foe_tile.instantiate()
 		tile.setCreature(current_floor.foes[pos])
 		var startPos = pos
 		tile.add_to_group(foe_group)

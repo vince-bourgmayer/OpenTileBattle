@@ -12,7 +12,6 @@ var atk
 var def
 var mAtk
 var mDef
-var SkillBoost = 0.0
 var isAlive = true
 
 # 'anim' For test
@@ -48,7 +47,7 @@ func set_callables(dictionnary):
 func disable(val):
 	$button.disabled = val
 	
-func setCreature(creature):
+func setCreature(creature: Foe):
 	$icon.setCreature(creature)
 	id = counter
 	creaName = creature.name
@@ -56,28 +55,16 @@ func setCreature(creature):
 	def = creature.def
 	mAtk = creature.mAtk
 	mDef = creature.mDef
-	if (creature is Job):
-		SkillBoost = creature.skillBoost
 	
 func applyDmg(dmg):
 	if !isAlive:
 		return
-	print("	<--- %s took %s dmg" % [creaName, dmg])
-
+		print("	---> %s %s took %s dmg" % [creaName, id, dmg])
+	
 	$icon/life_bar.value -= dmg
 	if $icon/life_bar.value == 0:
 		isAlive = false
-		set_collision_layer(0)
-		
-
-func _on_button_button_down():
-	if (callable_dic != null):
-		callable_dic["drag"].call(self)
-
-func _on_button_button_up():
-	if (callable_dic != null):
-		callable_dic["drop"].call(self)
-		
+		self.set_collision_layer(0)		
 		
 func playAttack():
 	attackTimer.start()
@@ -86,6 +73,7 @@ func playAttack():
 func playDeath():
 	dyingTimer.start()
 	playingDeathAnim = true
+	
 	
 func _after_deathAnim():
 	dyingTimer.stop()

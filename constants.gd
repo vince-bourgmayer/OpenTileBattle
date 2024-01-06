@@ -14,6 +14,20 @@ const gridOffset = Vector2(40, 250)
 func get_grid_cell_for_pos(pos: Vector2):
 	var formatted_position = pos-gridOffset
 	return (formatted_position / Constants.tileSize).round()
+	
+func getRandomDir():
+	var result : Vector2 = Vector2.ZERO
+	var random_number = randi()% 4
+	match(random_number):
+		0:
+			result.x += 1
+		1:
+			result.y += 1
+		2:
+			result.x -= 1
+		3:
+			result.y -= 1
+	return result
 
 # --- enum ---
 
