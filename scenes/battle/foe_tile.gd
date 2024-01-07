@@ -10,13 +10,13 @@ var xp : int
 var coins : int
 
 func _ready():
-	counter += 1
 	destination = position
 
 func _process(_delta):
 	super._process(_delta)
 	
 func setCreature(foe: Creature):
+	counter += 1
 	$icon.setCreature(foe)
 	id = counter
 	xp = foe.xp

@@ -128,7 +128,6 @@ func movePlayerTile(_delta, unit: PlayerTile, destination : Vector2):
 func on_player_dragged(playerTile):
 	print("state is: %s and isDraggedUnit: %s" % [state, isDraggedUnit])
 	if (state == gameState.PLAYER_MOVE and !isDraggedUnit):
-		print("pouette")
 		print("dragging unit %s" % playerTile)
 		movingUnit = playerTile
 		movingUnit.z_index += 1
@@ -166,8 +165,8 @@ func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
 func resolve_playerMove():
 	state = gameState.PLAYER_RESOLUTION
 	print("\n|--------PLAYER RESOLUTION--------|\n")
-	var playerTiles = get_tree().get_nodes_in_group(player_group)
-	var foes = get_tree().get_nodes_in_group(foe_group)
+	var playerTiles = get_tree().get_nodes_in_group(player_group) as Array[PlayerTile]
+	var foes = get_tree().get_nodes_in_group(foe_group) as Array[FoeTile]
 	
 	var playerResolver = PlayerResolver.new(playerTiles, foes)
 	
@@ -175,6 +174,7 @@ func resolve_playerMove():
 
 	for pincer in playerResolver.pincers:
 		apply_pincer_damage(pincer)
+		await get_tree().create_timer(1.15).timeout
 	
 	movingUnit = null
 
@@ -200,17 +200,34 @@ func apply_pincer_damage(pincer: Pincer):
 	pincer.start_pincer.playAttack()
 	pincer.end_pincer.playAttack()
 	
+	await get_tree().create_timer(0.5).timeout
+	
+	for ally in pincer.allies:
+		ally.playAttack()
+	
+	var tweenDelay = 0
 	for foe in pincer.targets:
+		
 		var startDmg= Constants.compute_damage(pincer.start_pincer, foe)
+		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, startDmg, 0, 0))
 		foe.applyDmg(startDmg)
 		$GUI/battleTopBar.add_power(startDmg/20)
+		tweenDelay += 0.5
+		
 		var endDmg = Constants.compute_damage(pincer.end_pincer, foe)
 		foe.applyDmg(endDmg)
+		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, endDmg, 0, 0, tweenDelay))
 		$GUI/battleTopBar.add_power(endDmg/20)
+		
+		for ally in pincer.allies:
+			var dmg = Constants.compute_damage(ally, foe)
+			foe.applyDmg(dmg)
+			#$visualEffect.add_child(DamageDisplayEffect.new(foe.position, dmg, 0, 0, tweenDelay))
+			$GUI/battleTopBar.add_power(dmg/20)
 	
 	
 func _on_foe_death(foe: FoeTile):
-	print("%s is dead" % foe.creaName)
+	print("		---> %s is dead" % foe.creaName)
 	xp_gathered += foe.xp
 	coins_gathered += foe.coins
 	$GUI/battleTopBar.update_xp_gathered(xp_gathered)

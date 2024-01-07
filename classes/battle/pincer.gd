@@ -25,3 +25,7 @@ func isFor(nodeA, nodeB):
 		return true
 	else: 
 		return false
+		
+func has(tile: PlayerTile):
+	if start_pincer == tile or end_pincer == tile:
+		return true

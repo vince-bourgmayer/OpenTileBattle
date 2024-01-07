@@ -74,10 +74,11 @@ func generateDummyFloor(isFirst: bool):
 	var StarterPos = []
 	
 	if isFirst:
-		StarterPos.append_array([Vector2(5,5), Vector2(1,1), Vector2(1,3)])
+		StarterPos.append_array([Vector2(5,5), Vector2(1,1), Vector2(1,3),Vector2(0,0)])
 		floor.addPlayerFighterPos(StarterPos[0])
 		floor.addPlayerFighterPos(StarterPos[1])
 		floor.addPlayerFighterPos(StarterPos[2])
+		floor.addPlayerFighterPos(StarterPos[3])
 	
 	var goblinA = Foe.new("goblin spearman", 75, 12, 10, 3, 5, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
 	goblinA.xp = 150

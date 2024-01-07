@@ -51,16 +51,24 @@ func prepareDummySquad():
 	var mizury_job3 = Job.new("RNA", 524, 27, 37, 57, 58, 1, 3, 2, 10, 6, "characters/mizury/Mizury_job2_icon.webp", "", 0.0, false)
 	var mizury = Character.new(2, "Guardian mizury", [mizury_job1, mizury_job2, mizury_job3], 0)
 	
-	var high_elf_job = Job.new("the Archer", 420, 53, 50, 21, 30, 1, 9, 0, 0, 5, "characters/high_elf/high_elf_job1_icon.webp", "", 0.0, true)
+	var high_elf_job = Job.new("the Archer", 420, 53, 50, 21, 30, 1, Constants.species.ELF, Constants.weapons.BOW, 0, Constants.rarities.SS, "characters/high_elf/high_elf_job1_icon.webp", "", 0.0, true)
 	var high_elf = Character.new(3, "High elf", [high_elf_job], 0)
+	
+	Constants.elements.NONE
+	var goblinSlayer_job = Job.new("", 1027, 94, 98, 50, 45, 15, Constants.species.HUMAN, Constants.weapons.SWORD, 0, Constants.rarities.S, "characters/goblin_slayer/goblin_slayer_job1_icon.webp", "", 0.4, true)
+	var goblin_slayer = Character.new(4, "Goblin Slayer", [goblinSlayer_job], 0)
 	
 	unlocked_characters.append(samatha)
 	unlocked_characters.append(bonna)
 	unlocked_characters.append(mizury)
 	unlocked_characters.append(high_elf)
+	unlocked_characters.append(goblin_slayer)
 	
 	getSquad(0).changeCharacter(0, samatha)
 	getSquad(0).changeCharacter(1, bonna)
 	getSquad(0).changeCharacter(2, mizury)
+	
 	getSquad(1).changeCharacter(0, bonna)
 	getSquad(1).changeCharacter(1, high_elf)
+	getSquad(1).changeCharacter(2, goblin_slayer)
+	getSquad(1).changeCharacter(3, samatha)
