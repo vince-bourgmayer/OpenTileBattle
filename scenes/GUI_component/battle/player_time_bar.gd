@@ -1,6 +1,6 @@
 extends Control
 var max_time: int 
-const default_max_time = 4
+const default_max_time = 12
 var started = false
 
 var on_timeout_callback : Callable

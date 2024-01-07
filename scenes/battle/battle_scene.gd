@@ -15,7 +15,7 @@ var movingFoeIndex = 0
 var stage: Stage
 
 enum gameState {PLAYER_MOVE, PLAYER_RESOLUTION, NPC_MOVE, NPC_RESOLUTION, PREPARATION}
-var state : gameState
+var state : gameState = gameState.PREPARATION
 var currentFloor = 0
 
 var playerTile_callback = {
@@ -26,7 +26,7 @@ var playerTile_callback = {
 
 func _process(_delta):
 	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
-		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
+		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset + Constants.tileSize/2, grid_botRight-Constants.tileSize/2)
 		movePlayerTile(_delta, movingUnit, mousePosition)
 		
 	elif (state == gameState.NPC_MOVE):
@@ -37,18 +37,20 @@ func _process(_delta):
 			moveFoe(_delta)
 
 # ============ Initialization =====================
-
 func _ready():
-	state = gameState.PLAYER_MOVE
 	#grid_topleft = $GUI/grid/grid.position # 40, 250
 	grid_botRight = Constants.gridOffset+ $GUI/grid/grid.size
 	$GUI/battleTopBar.set_player_turn_timer_callback(Callable(self, "on_player_dropped"))
 
-func setInput(stage : Stage, squad: Squad):
-	self.stage = stage
+func setInput(_stage : Stage, squad: Squad): # it is called before _ready()
+	self.stage = _stage
+	$visualEffect.add_child(BattleTitleEffect.new("Battle 1"))
 	var battle_floor = stage.get_battle_floor(currentFloor)
 	generate_player_tiles(squad, battle_floor)
 	generate_npc_tiles(battle_floor)
+	print("\n|--------PLAYER TURN--------|\n")
+	state = gameState.PLAYER_MOVE
+	print("state: %s" % state)
 
 func load_next_floor():
 	state = gameState.PREPARATION
@@ -61,9 +63,11 @@ func load_next_floor():
 	
 	var battle_floor : Floor= stage.get_battle_floor(currentFloor)
 	if battle_floor == null:
+		$visualEffect.add_child(BattleTitleEffect.new("VICTORY"))
 		print("\n\n====> VICTORY <====")
 		return
 		
+	$visualEffect.add_child(BattleTitleEffect.new("Battle %s" % (currentFloor+1)))
 	for player in get_tree().get_nodes_in_group(player_group):
 		battle_floor.foes.erase(Constants.get_grid_cell_for_pos(player.position))
 		
@@ -100,22 +104,25 @@ func generate_npc_tiles(battle_floor: Floor):
 # ============ Player turn  =====================
 
 func movePlayerTile(_delta, unit: PlayerTile, destination : Vector2):
-	if (isDraggedUnit): 
-		var current_pos = unit.global_position
-		
-		var distance : float = current_pos.distance_to(destination)
-		var direction: Vector2 = current_pos.direction_to(destination)
-		var speed = distance/_delta
+	if !isDraggedUnit:
+		return
+	var current_pos = unit.global_position
+	var distance : float = current_pos.distance_to(destination)
+	var direction: Vector2 = current_pos.direction_to(destination)
+	var speed = distance/_delta
 
-		var velocity = direction * speed
-		unit.velocity = velocity
-		unit.move_and_slide()
+	var velocity = direction * speed
+	unit.velocity = velocity
+	unit.move_and_slide()
 
 		
 func on_player_dragged(playerTile):
+	print("state is: %s and isDraggedUnit: %s" % [state, isDraggedUnit])
 	if (state == gameState.PLAYER_MOVE and !isDraggedUnit):
+		print("pouette")
 		print("dragging unit %s" % playerTile)
 		movingUnit = playerTile
+		movingUnit.z_index += 1
 		isDraggedUnit = true
 		$GUI/battleTopBar.start_player_turn_timer()
 	
@@ -123,7 +130,7 @@ func on_player_dropped():
 	if (isDraggedUnit):
 		var cell_pos = Constants.get_grid_cell_for_pos(movingUnit.position)
 		movingUnit.position = Constants.get_pos_from_grid_cell(cell_pos)
-		
+		movingUnit.z_index -= 1
 		isDraggedUnit = false
 		$GUI/battleTopBar.finish_player_time_bar()
 		resolve_playerMove()
@@ -141,9 +148,9 @@ func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
 			var mouse_position = get_viewport().get_mouse_position()
 			var direction = mouse_position.direction_to(movingUnit_pos).round()
 			print("direction: %s" % direction)
-			allyB.position = Constants.get_pos_from_grid_cell(collider_pos + direction).clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
+			allyB.position = Constants.get_pos_from_grid_cell(collider_pos + direction).clamp(Constants.gridOffset+Constants.tileSize/2, grid_botRight-Constants.tileSize/2)
 		else:
-			var converted_cell_pos = Constants.get_pos_from_grid_cell(cell_pos).clamp(Constants.gridOffset, grid_botRight-Constants.tileSize)
+			var converted_cell_pos = Constants.get_pos_from_grid_cell(cell_pos).clamp(Constants.gridOffset+Constants.tileSize/2, grid_botRight-Constants.tileSize/2)
 			allyB.position = converted_cell_pos
 		
 

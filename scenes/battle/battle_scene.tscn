@@ -17,3 +17,6 @@ offset_bottom = 150.0
 
 [node name="creatures" type="CanvasLayer" parent="."]
 layer = 3
+
+[node name="visualEffect" type="CanvasLayer" parent="."]
+layer = 4

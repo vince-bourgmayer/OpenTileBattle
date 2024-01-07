@@ -5,47 +5,49 @@
 [ext_resource type="Texture2D" uid="uid://b0nl0uy8l1y1b" path="res://art/characters/bonna/Bonna_job1_icon.webp" id="2_frc0f"]
 [ext_resource type="Texture2D" uid="uid://c8gdgfik6k2nx" path="res://art/battle/player_tile_button_tex.webp" id="4_601m7"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e06cp"]
-size = Vector2(105.376, 105.376)
+[sub_resource type="CircleShape2D" id="CircleShape2D_8w5s0"]
+radius = 39.8
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wstr3"]
-size = Vector2(106, 106)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgd1o"]
+size = Vector2(40, 40)
 
 [node name="staticBody" type="CharacterBody2D"]
 scale = Vector2(0.93, 0.93)
 collision_mask = 2
 input_pickable = true
+slide_on_ceiling = false
 script = ExtResource("1_agh68")
 
 [node name="icon" parent="." instance=ExtResource("1_y3h8i")]
 z_index = 1
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 110.0
-offset_bottom = 110.0
+offset_left = -53.0
+offset_top = -53.0
+offset_right = 53.0
+offset_bottom = 53.0
 mouse_filter = 2
 texture = ExtResource("2_frc0f")
 
 [node name="button" type="Button" parent="."]
 custom_minimum_size = Vector2(106, 106)
-offset_right = 114.0
-offset_bottom = 114.0
+offset_left = -57.0
+offset_top = -57.0
+offset_right = 57.0
+offset_bottom = 57.0
 mouse_filter = 1
 keep_pressed_outside = true
 icon = ExtResource("4_601m7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(56.9893, 56.9893)
-shape = SubResource("RectangleShape2D_e06cp")
+shape = SubResource("CircleShape2D_8w5s0")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 4
 
 [node name="allyCollisionShape" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(57, 57)
+position = Vector2(-3.07637e-06, -4.39767e-06)
 scale = Vector2(0.8, 0.8)
-shape = SubResource("RectangleShape2D_wstr3")
+shape = SubResource("RectangleShape2D_pgd1o")
 debug_color = Color(0.976471, 0, 0.407843, 0.419608)
 
 [connection signal="button_down" from="button" to="." method="_on_button_button_down"]

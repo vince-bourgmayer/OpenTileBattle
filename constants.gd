@@ -18,11 +18,12 @@ const grid_cell_separator = Vector2(2,2) # grid cell separator thickness (in two
 const gridOffset = Vector2(40, 250)
 
 func get_grid_cell_for_pos(pos: Vector2):
-	var formatted_position = pos-gridOffset
+	
+	var formatted_position = pos- Constants.tileSize/2 - gridOffset - Constants.grid_cell_separator
 	return (formatted_position / Constants.tileSize).round()
 	
 func get_pos_from_grid_cell(cell: Vector2):
-	return (cell * Constants.tileSize + Constants.grid_cell_separator) +Constants.gridOffset
+	return cell * tileSize + grid_cell_separator  + tileSize/2 + gridOffset
 	
 func get_random_dir():
 	var result : Vector2 = Vector2.ZERO

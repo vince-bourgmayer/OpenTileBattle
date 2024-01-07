@@ -7,8 +7,10 @@ var SkillBoost = 0.0
 
 var playingAttackAnim = false
 var attackTimer = Timer.new()
+var size: Vector2
 
 func _ready():
+	size = $button.size
 	attackTimer.wait_time = 1
 	attackTimer.connect("timeout", Callable(_after_attackAnim))
 	add_child(attackTimer)
@@ -43,7 +45,8 @@ func applyDmg(dmg):
 		
 
 func _on_button_button_down():
-	if (callback_dic != null):
+	if (callback_dic.has("drag")):
+		print("call")
 		callback_dic["drag"].call(self)
 
 func _on_button_button_up():

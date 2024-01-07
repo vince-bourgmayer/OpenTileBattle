@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://scenes/battle/foe_tile.gd" id="1_h3xc3"]
 [ext_resource type="PackedScene" uid="uid://cymvq2mn58fh1" path="res://scenes/GUI_component/character/creature_tile.tscn" id="2_cjflc"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_e06cp"]
-size = Vector2(105.376, 105.376)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvlrb"]
+size = Vector2(80, 80)
 
 [node name="staticBody" type="CharacterBody2D"]
 scale = Vector2(0.93, 0.93)
@@ -14,14 +14,12 @@ input_pickable = true
 script = ExtResource("1_h3xc3")
 
 [node name="icon" parent="." instance=ExtResource("2_cjflc")]
-z_index = 1
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 110.0
-offset_bottom = 110.0
+offset_left = -53.0
+offset_top = -53.0
+offset_right = 53.0
+offset_bottom = 53.0
 mouse_filter = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(56.9893, 56.9893)
 scale = Vector2(0.95, 0.95)
-shape = SubResource("RectangleShape2D_e06cp")
+shape = SubResource("RectangleShape2D_cvlrb")
