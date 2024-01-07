@@ -6,8 +6,14 @@ const screenSize = Vector2(720, 1280)
 const maxSquadNumber = 6
 const maxCharPerSquad = 6
 
+# --- enum ---
+enum species {WILD_BEAST, LIZARD_FOLK, STONE_FOLK, HUMAN, BEAST_FOLK, CELL, SPIRIT, MACHINE, CELESTIAL, ELF}
+enum elements {NONE, FIRE, ICE, LIGHTNING, DARKNESS, SOLAR, LUNAR, GRAVITON, PHOTON, HEALING, REMEDY}
+enum weapons {BOW, SPEAR, STAFF, SWORD}
+enum rarities {D, C, B, A, S, SS, Z}
+enum pincerType {LINE, COLUMN}
 
-# --- Battle Const ---
+# --- Battle Const & func ---
 const grid_cell_separator = Vector2(2,2) # grid cell separator thickness (in two direction)
 const gridOffset = Vector2(40, 250)
 
@@ -35,22 +41,24 @@ func get_random_dir():
 func compute_damage(attacker: BattleTile, defender: BattleTile):
 	return attacker.atk - defender.def
 
-# --- enum ---
+# based on https://terrabattle.fandom.com/wiki/Battles
+func base_physical_skill_dmg(power: int, atk: int, def: int):
+	var computed_atk = pow(atk * 1.15, 1.7)
+	var computed_def = pow(def, 0.7)
+	return 1.1 * power * computed_atk/computed_def
+	
+# based on https://terrabattle.fandom.com/wiki/Battles
+func base_magical_skill_dmg(power: int, mAtk: int, mDef: int):
+	var computed_atk = pow(mAtk, 1.7)
+	var computed_def = pow(mDef, 0.7)
+	return 1.5 * power * computed_atk/computed_def
 
-enum species {WILD_BEAST, LIZARD_FOLK, STONE_FOLK, HUMAN, BEAST_FOLK, CELL, SPIRIT, MACHINE, CELESTIAL, ELF}
-enum elements {NONE, FIRE, ICE, LIGHTNING, DARKNESS, SOLAR, LUNAR, GRAVITON, PHOTON, HEALING, REMEDY}
-enum weapons {BOW, SPEAR, STAFF, SWORD}
-enum rarities {D, C, B, A, S, SS, Z}
-enum pincerType {LINE, COLUMN}
 # --- Color ---
-
 const xpBar_green = "72b868"
 const lifeBar_darkBlue = "30656d"
 const lifeBar_lightblue = "3dd0e4"
+
 # --- test ---
-
-
-
 func generateDummyStage():
 	var stage = Stage.new(1, "Is he here ?")
 	
