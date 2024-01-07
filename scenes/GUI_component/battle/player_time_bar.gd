@@ -1,6 +1,5 @@
 extends Control
 var max_time: int 
-const default_max_time = 12
 var started = false
 
 var on_timeout_callback : Callable
@@ -10,7 +9,7 @@ func set_timeout_callback(callback):
 	
 
 func _ready():
-	$timer.wait_time = default_max_time
+	$timer.wait_time = Constants.default_player_time
 	$timeBar.value = 100
 	pass # Replace with function body.
 

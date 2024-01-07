@@ -8,6 +8,10 @@ var foe_tile = load("res://scenes/battle/foe_tile.tscn")
 #var grid_topleft  #replaced by constants
 var grid_botRight
 
+
+var xp_gathered : int = 0
+var coins_gathered : int = 0
+
 var movingUnit
 var isDraggedUnit = false
 var movingFoeIndex = 0
@@ -22,6 +26,10 @@ var playerTile_callback = {
 	"drag" : Callable(self, "on_player_dragged"),
 	"drop" : Callable(self, "on_player_dropped"),
 	"ally_collision" : Callable(self, "on_ally_collision")
+}
+
+var foeTile_callback = {
+	"foe_death" : Callable(self, "_on_foe_death")
 }
 
 func _process(_delta):
@@ -97,6 +105,7 @@ func generate_npc_tiles(battle_floor: Floor):
 		tile.setCreature(battle_floor.foes[pos])
 		var startPos = pos
 		tile.add_to_group(foe_group)
+		tile.set_callables(foeTile_callback)
 		tile.position = Constants.get_pos_from_grid_cell(startPos)
 		#await get_tree().create_timer(0.5).timeout
 		$creatures.add_child(tile)
@@ -199,6 +208,13 @@ func apply_pincer_damage(pincer: Pincer):
 		foe.applyDmg(endDmg)
 		$GUI/battleTopBar.add_power(endDmg/20)
 	
+	
+func _on_foe_death(foe: FoeTile):
+	print("%s is dead" % foe.creaName)
+	xp_gathered += foe.xp
+	coins_gathered += foe.coins
+	$GUI/battleTopBar.update_xp_gathered(xp_gathered)
+	$GUI/battleTopBar.update_coins_gathered(coins_gathered)
 # ============ NPC turn  =====================
 	
 func setNextMovingFoe():

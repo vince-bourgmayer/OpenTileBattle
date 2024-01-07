@@ -16,7 +16,7 @@ enum pincerType {LINE, COLUMN}
 # --- Battle Const & func ---
 const grid_cell_separator = Vector2(2,2) # grid cell separator thickness (in two direction)
 const gridOffset = Vector2(40, 250)
-
+const default_player_time = 4
 func get_grid_cell_for_pos(pos: Vector2):
 	
 	var formatted_position = pos- Constants.tileSize/2 - gridOffset - Constants.grid_cell_separator
@@ -80,8 +80,11 @@ func generateDummyFloor(isFirst: bool):
 		floor.addPlayerFighterPos(StarterPos[2])
 	
 	var goblinA = Foe.new("goblin spearman", 75, 12, 10, 3, 5, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
+	goblinA.xp = 150
+	goblinA.coins = 20
 	var goblinB = Foe.new("goblin swordman", 105, 15, 14, 5, 8, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
-
+	goblinB.xp = 200
+	goblinB.coins = 25
 	var foe_number = (randi()% 11 )+4
 	
 	var counter = 0
