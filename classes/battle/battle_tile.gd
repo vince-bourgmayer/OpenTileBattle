@@ -47,3 +47,6 @@ func playDeathEffect():
 	tween.finished.connect(func():
 		visible = false
 		modulate.a = 1)
+
+func get_cell_pos():
+	return Constants.get_grid_cell_for_pos(position)

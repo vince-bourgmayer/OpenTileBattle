@@ -76,8 +76,8 @@ func load_next_floor():
 		return
 		
 	$visualEffect.add_child(BattleTitleEffect.new("Battle %s" % (currentFloor+1)))
-	for player in get_tree().get_nodes_in_group(player_group):
-		battle_floor.foes.erase(Constants.get_grid_cell_for_pos(player.position))
+	for player: PlayerTile in get_tree().get_nodes_in_group(player_group):
+		battle_floor.foes.erase(player.get_cell_pos())
 		
 	generate_npc_tiles(battle_floor)
 	
@@ -136,7 +136,7 @@ func on_player_dragged(playerTile):
 	
 func on_player_dropped():
 	if (isDraggedUnit):
-		var cell_pos = Constants.get_grid_cell_for_pos(movingUnit.position)
+		var cell_pos = movingUnit.get_cell_pos()
 		movingUnit.position = Constants.get_pos_from_grid_cell(cell_pos)
 		movingUnit.z_index -= 1
 		isDraggedUnit = false
@@ -149,8 +149,8 @@ func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
 
 		print("	> %s got collision with %s" % [movingUnit.creaName, allyB.creaName])
 		var movingUnit_pos = allyA.position
-		var cell_pos = Constants.get_grid_cell_for_pos(movingUnit_pos)
-		var collider_pos = Constants.get_grid_cell_for_pos(allyB.position)
+		var cell_pos = allyA.get_cell_pos()
+		var collider_pos = allyB.get_cell_pos()
 		if (cell_pos == collider_pos):
 			print("		> Collision detected on same cell %s" % cell_pos)
 			var mouse_position = get_viewport().get_mouse_position()
