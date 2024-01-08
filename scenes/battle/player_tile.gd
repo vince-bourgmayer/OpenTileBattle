@@ -16,8 +16,6 @@ func _ready():
 	add_child(attackTimer)
 
 func _process(_delta):
-	super._process(_delta)
-		
 	if playingAttackAnim:
 		var multiplier = 1
 		if (attackTimer.time_left < 0.70):

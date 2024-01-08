@@ -15,20 +15,7 @@ var elt : Constants.elements = Constants.elements.NONE
 var weapon : Constants.weapons = Constants.weapons.STAFF
 
 var callback_dic : Dictionary
-var timer_dic: Dictionary
 
-var playingDeathEffect = false
-
-func _init():
-	var deathTimer = createDeathEffectTimer()
-	add_child(deathTimer)
-	timer_dic["death"] = deathTimer
-	
-	pass
-	
-func _process(_delta):
-	if playingDeathEffect:
-		playDyingEffect(_delta)
 
 func set_callables(dictionary : Dictionary):
 	callback_dic = dictionary
@@ -52,26 +39,15 @@ func applyDmg(dmg : int):
 	if hp == 0:
 		isAlive = false
 
+func playDeathEffect():
+	var tween = get_tree().create_tween()
+	var modified_modulate = modulate
+	modified_modulate.a = 0
+	tween.tween_interval(1)
+	tween.tween_property(self, "modulate", modified_modulate, 1)
+	tween.set_trans(Tween.TRANS_EXPO)
+	tween.finished.connect(Callable(func _after_deathEffect():
 
-func createDeathEffectTimer(): 
-	var timer = Timer.new()
-	timer.wait_time = 1
-	
-	var timeout_after_death_effect = Callable(func _after_deathEffect(timer):
-		timer.stop()
-		playingDeathEffect = false
 		visible = false
 		modulate.a = 1
-		)
-		
-	timer.timeout.connect(timeout_after_death_effect.bind(timer))
-	return timer
-
-func playDyingEffect(_delta):
-	var timer = timer_dic["death"]
-	modulate.a = timer.time_left / timer.wait_time
-	
-func playDeathEffect():
-	var timer = timer_dic["death"]
-	timer.start()
-	playingDeathEffect = true
+		))

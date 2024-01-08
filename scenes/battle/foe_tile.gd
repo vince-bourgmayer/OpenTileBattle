@@ -12,9 +12,6 @@ var coins : int
 func _ready():
 	destination = position
 
-func _process(_delta):
-	super._process(_delta)
-	
 func setCreature(foe: Creature):
 	counter += 1
 	$icon.setCreature(foe)
