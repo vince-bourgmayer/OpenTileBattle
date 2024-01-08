@@ -205,28 +205,27 @@ func apply_pincer_damage(pincer: Pincer):
 	for ally in pincer.allies:
 		ally.playAttack()
 	
-
 	for foe: FoeTile in pincer.targets:
 		var tweenDelay = 0
-		var startDmg= Constants.compute_damage(pincer.start_pincer, foe)
-		var endDmg = Constants.compute_damage(pincer.end_pincer, foe)
 		
+		var startDmg: Damage = Constants.compute_damage(pincer.start_pincer, foe)
+		var endDmg: Damage = Constants.compute_damage(pincer.end_pincer, foe)
 		
-		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, startDmg, pincer.start_pincer.elt, 0))
-		$GUI/battleTopBar.add_power(startDmg/20)
+		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, startDmg))
+		$GUI/battleTopBar.add_power(startDmg.dmg/20)
 		tweenDelay += 0.55
 		
-		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, endDmg, pincer.end_pincer.elt, 0, tweenDelay))
-		$GUI/battleTopBar.add_power(endDmg/20)
-		foe.applyDmg(startDmg)
-		foe.applyDmg(endDmg)
+		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, endDmg, tweenDelay))
+		$GUI/battleTopBar.add_power(endDmg.dmg/20)
+		foe.applyDmg(startDmg.dmg)
+		foe.applyDmg(endDmg.dmg)
 		
 		for ally: PlayerTile in pincer.allies:
 			tweenDelay+=0.25
-			var dmg = Constants.compute_damage(ally, foe)
-			$visualEffect.add_child(DamageDisplayEffect.new(foe.position, dmg, ally.elt, 0, tweenDelay))
-			$GUI/battleTopBar.add_power(dmg/20)
-			foe.applyDmg(dmg)
+			var dmg: Damage = Constants.compute_damage(ally, foe)
+			$visualEffect.add_child(DamageDisplayEffect.new(foe.position, dmg, tweenDelay))
+			$GUI/battleTopBar.add_power(dmg.dmg/20)
+			foe.applyDmg(dmg.dmg)
 	
 	
 func _on_foe_death(foe: FoeTile):

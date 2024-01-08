@@ -1,20 +1,19 @@
 class_name DamageDisplayEffect extends Node2D
 # Can also display heal
 
-
 var label
 var tweenInterval = 0.5
 
-func _init(pos: Vector2, dmg: int, elt: Constants.elements, weap: Constants.weapons, _tween_interval = 0.3):
+func _init(pos: Vector2, dmg: Damage, _tween_interval = 0.3):
 	label = Label.new()
-	label.text = str(dmg)
+	label.text = str(dmg.dmg)
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.add_theme_font_size_override("font_size", 40)
 	# TODO: change text color depending on elt
 	# TODO: add animated sprite depending on weapons & elt
 
-	match (elt):
+	match (dmg.element):
 		Constants.elements.LIGHTNING:
 			label.add_theme_color_override("font_color", Color.YELLOW)
 		Constants.elements.DARKNESS:

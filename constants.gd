@@ -40,10 +40,13 @@ func get_random_dir():
 	return result
 	
 func compute_damage(attacker: BattleTile, defender: BattleTile):
-	return attacker.atk - defender.def
+	var weapon_carnage_bonus = get_weapon_carnage_bonus(attacker.weapon, defender.weapon)
+	var dmg = base_physical_skill_dmg(0.7, attacker.atk, defender.def) * weapon_carnage_bonus
+	return Damage.new(dmg, attacker.elt, attacker.weapon)
+
 
 # based on https://terrabattle.fandom.com/wiki/Battles
-func base_physical_skill_dmg(power: int, atk: int, def: int):
+func base_physical_skill_dmg(power: float, atk: int, def: int):
 	var computed_atk = pow(atk * 1.15, 1.7)
 	var computed_def = pow(def, 0.7)
 	return 1.1 * power * computed_atk/computed_def
@@ -53,6 +56,16 @@ func base_magical_skill_dmg(power: int, mAtk: int, mDef: int):
 	var computed_atk = pow(mAtk, 1.7)
 	var computed_def = pow(mDef, 0.7)
 	return 1.5 * power * computed_atk/computed_def
+	
+func get_weapon_carnage_bonus(atk_weapon: weapons, def_weapon: weapons):
+	var sword_on_bow = atk_weapon == weapons.SWORD and def_weapon == weapons.BOW
+	var spear_on_sword = atk_weapon == weapons.SPEAR and def_weapon == weapons.SWORD
+	var bow_on_spear = atk_weapon == weapons.BOW and def_weapon == weapons.SPEAR
+	if sword_on_bow or spear_on_sword or bow_on_spear:
+		return 2
+	else:
+		return 1
+	
 
 # --- Color ---
 const xpBar_green = "72b868"
