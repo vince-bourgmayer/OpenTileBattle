@@ -14,6 +14,16 @@ func _init(pos: Vector2, dmg: int, elt: Constants.elements, weap: Constants.weap
 	# TODO: change text color depending on elt
 	# TODO: add animated sprite depending on weapons & elt
 
+	match (elt):
+		Constants.elements.LIGHTNING:
+			label.add_theme_color_override("font_color", Color.YELLOW)
+		Constants.elements.DARKNESS:
+			label.add_theme_color_override("font_color", Color.REBECCA_PURPLE)
+		Constants.elements.FIRE:
+			label.add_theme_color_override("font_color", Color.FIREBRICK)
+		Constants.elements.ICE:
+			label.add_theme_color_override("font_color", Color.DEEP_SKY_BLUE)
+			
 	tweenInterval = _tween_interval
 	label.visible = 0
 	position = pos

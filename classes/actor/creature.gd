@@ -8,10 +8,10 @@ class_name Creature
 @export var mDef : int
 @export var level : int
 # use enum in Constants.gd
-@export var specy : int 
-@export var weapon : int
-@export var elt : int
-@export var rarity : int
+@export var specy : Constants.species 
+@export var weapon : Constants.weapons
+@export var elt : Constants.elements
+@export var rarity : Constants.rarities
 
 @export var portrait_path : String
 @export var full_art_path : String

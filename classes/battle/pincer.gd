@@ -4,10 +4,10 @@ class_name Pincer
 var targets = [] # foes
 var allies = [] # allies allowed to support
 var type : Constants.pincerType
-var start_pincer
-var end_pincer
+var start_pincer: PlayerTile
+var end_pincer: PlayerTile
 
-func _init(pincerA, pincerB, pincerType):
+func _init(pincerA: PlayerTile, pincerB: PlayerTile, pincerType):
 	start_pincer = pincerA
 	end_pincer = pincerB
 	type = pincerType

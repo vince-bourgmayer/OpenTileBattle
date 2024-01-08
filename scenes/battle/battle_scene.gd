@@ -205,29 +205,32 @@ func apply_pincer_damage(pincer: Pincer):
 	for ally in pincer.allies:
 		ally.playAttack()
 	
-	var tweenDelay = 0
-	for foe in pincer.targets:
-		
+
+	for foe: FoeTile in pincer.targets:
+		var tweenDelay = 0
 		var startDmg= Constants.compute_damage(pincer.start_pincer, foe)
-		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, startDmg, 0, 0))
-		foe.applyDmg(startDmg)
-		$GUI/battleTopBar.add_power(startDmg/20)
-		tweenDelay += 0.5
-		
 		var endDmg = Constants.compute_damage(pincer.end_pincer, foe)
-		foe.applyDmg(endDmg)
-		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, endDmg, 0, 0, tweenDelay))
-		$GUI/battleTopBar.add_power(endDmg/20)
 		
-		for ally in pincer.allies:
+		
+		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, startDmg, pincer.start_pincer.elt, 0))
+		$GUI/battleTopBar.add_power(startDmg/20)
+		tweenDelay += 0.55
+		
+		$visualEffect.add_child(DamageDisplayEffect.new(foe.position, endDmg, pincer.end_pincer.elt, 0, tweenDelay))
+		$GUI/battleTopBar.add_power(endDmg/20)
+		foe.applyDmg(startDmg)
+		foe.applyDmg(endDmg)
+		
+		for ally: PlayerTile in pincer.allies:
+			tweenDelay+=0.25
 			var dmg = Constants.compute_damage(ally, foe)
-			foe.applyDmg(dmg)
-			#$visualEffect.add_child(DamageDisplayEffect.new(foe.position, dmg, 0, 0, tweenDelay))
+			$visualEffect.add_child(DamageDisplayEffect.new(foe.position, dmg, ally.elt, 0, tweenDelay))
 			$GUI/battleTopBar.add_power(dmg/20)
+			foe.applyDmg(dmg)
 	
 	
 func _on_foe_death(foe: FoeTile):
-	print("		---> %s is dead" % foe.creaName)
+	print("		o><  %s is dead" % foe.creaName)
 	xp_gathered += foe.xp
 	coins_gathered += foe.coins
 	$GUI/battleTopBar.update_xp_gathered(xp_gathered)

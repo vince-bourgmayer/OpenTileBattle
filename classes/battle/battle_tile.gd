@@ -11,6 +11,8 @@ var def : int
 var mAtk : int
 var mDef : int
 var isAlive = true
+var elt : Constants.elements = Constants.elements.NONE
+var weapon : Constants.weapons = Constants.weapons.STAFF
 
 var callback_dic : Dictionary
 var timer_dic: Dictionary
@@ -39,6 +41,8 @@ func setCreature(creature: Creature):
 	def = creature.def
 	mAtk = creature.mAtk
 	mDef = creature.mDef
+	elt = creature.elt
+	weapon = creature.weapon
 
 func applyDmg(dmg : int):
 	if hp - dmg < 0:
