@@ -1,7 +1,6 @@
 class_name BattleTile extends CharacterBody2D
 signal died
 
-
 var creaName : String
 var maxHp : int
 var hp : int
@@ -15,7 +14,6 @@ var elt : Constants.elements = Constants.elements.NONE
 var weapon : Constants.weapons = Constants.weapons.STAFF
 
 var callback_dic : Dictionary
-
 
 func set_callables(dictionary : Dictionary):
 	callback_dic = dictionary
@@ -40,14 +38,12 @@ func applyDmg(dmg : int):
 		isAlive = false
 
 func playDeathEffect():
-	var tween = get_tree().create_tween()
 	var modified_modulate = modulate
 	modified_modulate.a = 0
-	tween.tween_interval(1)
+	var tween = get_tree().create_tween()
+	tween.tween_interval(0.7)
 	tween.tween_property(self, "modulate", modified_modulate, 1)
 	tween.set_trans(Tween.TRANS_EXPO)
-	tween.finished.connect(Callable(func _after_deathEffect():
-
+	tween.finished.connect(func():
 		visible = false
-		modulate.a = 1
-		))
+		modulate.a = 1)

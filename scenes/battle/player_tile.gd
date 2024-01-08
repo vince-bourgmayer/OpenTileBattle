@@ -5,23 +5,10 @@ class_name PlayerTile extends BattleTile
 
 var SkillBoost = 0.0
 
-var playingAttackAnim = false
-var attackTimer = Timer.new()
 var size: Vector2
 
 func _ready():
 	size = $button.size
-	attackTimer.wait_time = 1
-	attackTimer.connect("timeout", Callable(_after_attackAnim))
-	add_child(attackTimer)
-
-func _process(_delta):
-	if playingAttackAnim:
-		var multiplier = 1
-		if (attackTimer.time_left < 0.70):
-			multiplier = -1
-		var scaleRatio = multiplier * (attackTimer.time_left / attackTimer.wait_time)/120 +1
-		apply_scale(Vector2(scaleRatio, scaleRatio))
 
 func disable(val):
 	$button.disabled = val
@@ -52,16 +39,13 @@ func _on_button_button_up():
 		callback_dic["drop"].call()
 		
 func playAttack():
-	attackTimer.start()
-	playingAttackAnim = true
-	
-func _after_attackAnim():
-	attackTimer.stop()
-	playingAttackAnim = false
-	scale = Vector2(0.93,0.93)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "scale", Vector2(1.05, 1.05), 0.4)
+	tween.set_trans(Tween.TRANS_EXPO)
+	tween.finished.connect(func(): scale = Vector2(0.93,0.93))
+
+
 
 func _on_area_2d_area_entered(area):
 	var area_parent = area.get_parent()
 	callback_dic["ally_collision"].call(self, area_parent)
-	pass # Replace with function body.
-
