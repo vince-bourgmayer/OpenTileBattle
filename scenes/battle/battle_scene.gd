@@ -3,6 +3,9 @@ extends Node2D
 const foe_group = "foes"
 const player_group = "player"
 
+var clamp_start
+var clamp_end
+
 var player_tile = load("res://scenes/battle/player_tile.tscn")
 var foe_tile = load("res://scenes/battle/foe_tile.tscn")
 #var grid_topleft  #replaced by constants
@@ -34,7 +37,7 @@ var foeTile_callback = {
 
 func _process(_delta):
 	if (state == gameState.PLAYER_MOVE and isDraggedUnit):
-		var mousePosition = get_viewport().get_mouse_position().clamp(Constants.gridOffset + Constants.tileSize/2, grid_botRight-Constants.tileSize/2)
+		var mousePosition = get_viewport().get_mouse_position().clamp(clamp_start, clamp_end)
 		movePlayerTile(_delta, movingUnit, mousePosition)
 		
 	elif (state == gameState.NPC_MOVE):
@@ -46,10 +49,11 @@ func _process(_delta):
 
 # ============ Initialization =====================
 func _ready():
-	#grid_topleft = $GUI/grid/grid.position # 40, 250
 	grid_botRight = Constants.gridOffset+ $GUI/grid/grid.size
 	$GUI/battleTopBar.set_player_turn_timer_callback(Callable(self, "on_player_dropped"))
-
+	clamp_start = Constants.gridOffset+Constants.tileSize/2
+	clamp_end = grid_botRight-Constants.tileSize/2
+	
 func setInput(_stage : Stage, squad: Squad): # it is called before _ready()
 	self.stage = _stage
 	$visualEffect.add_child(BattleTitleEffect.new("Battle 1"))
@@ -65,8 +69,7 @@ func load_next_floor():
 	
 	for foe in get_tree().get_nodes_in_group(foe_group):
 		$creatures.remove_child(foe)
-		
-	#await get_tree().create_timer(2).timeout
+	
 	currentFloor += 1
 	
 	var battle_floor : Floor= stage.get_battle_floor(currentFloor)
@@ -78,9 +81,7 @@ func load_next_floor():
 	$visualEffect.add_child(BattleTitleEffect.new("Battle %s" % (currentFloor+1)))
 	for player: PlayerTile in get_tree().get_nodes_in_group(player_group):
 		battle_floor.foes.erase(player.get_cell_pos())
-		
 	generate_npc_tiles(battle_floor)
-	
 	state = gameState.PLAYER_MOVE
 	
 
@@ -119,26 +120,21 @@ func movePlayerTile(_delta, unit: PlayerTile, destination : Vector2):
 	var distance : float = current_pos.distance_to(destination)
 	var direction: Vector2 = current_pos.direction_to(destination)
 	var speed = distance/_delta
-
 	var velocity = direction * speed
 	unit.velocity = velocity
 	unit.move_and_slide()
 
 		
-func on_player_dragged(playerTile):
-	print("state is: %s and isDraggedUnit: %s" % [state, isDraggedUnit])
+func on_player_dragged(playerTile: PlayerTile):
 	if (state == gameState.PLAYER_MOVE and !isDraggedUnit):
-		print("dragging unit %s" % playerTile)
 		movingUnit = playerTile
-		movingUnit.z_index += 1
+		movingUnit._on_drag()
 		isDraggedUnit = true
 		$GUI/battleTopBar.start_player_turn_timer()
 	
 func on_player_dropped():
 	if (isDraggedUnit):
-		var cell_pos = movingUnit.get_cell_pos()
-		movingUnit.position = Constants.get_pos_from_grid_cell(cell_pos)
-		movingUnit.z_index -= 1
+		movingUnit._on_drop()
 		isDraggedUnit = false
 		$GUI/battleTopBar.finish_player_time_bar()
 		resolve_playerMove()
@@ -146,20 +142,18 @@ func on_player_dropped():
 		
 func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
 	if movingUnit == allyA:
-
 		print("	> %s got collision with %s" % [movingUnit.creaName, allyB.creaName])
 		var movingUnit_pos = allyA.position
 		var cell_pos = allyA.get_cell_pos()
 		var collider_pos = allyB.get_cell_pos()
-		if (cell_pos == collider_pos):
-			print("		> Collision detected on same cell %s" % cell_pos)
-			var mouse_position = get_viewport().get_mouse_position()
-			var direction = mouse_position.direction_to(movingUnit_pos).round()
-			print("direction: %s" % direction)
-			allyB.position = Constants.get_pos_from_grid_cell(collider_pos + direction).clamp(Constants.gridOffset+Constants.tileSize/2, grid_botRight-Constants.tileSize/2)
-		else:
-			var converted_cell_pos = Constants.get_pos_from_grid_cell(cell_pos).clamp(Constants.gridOffset+Constants.tileSize/2, grid_botRight-Constants.tileSize/2)
-			allyB.position = converted_cell_pos
+		#if (cell_pos == collider_pos):
+		print("		> Collision detected on same cell %s" % cell_pos)
+		var mouse_position = get_viewport().get_mouse_position()
+		#var direction: Vector2 =  movingUnit.get_velocity().normalized().round() * -1
+		var direction = mouse_position.direction_to(movingUnit_pos).round()
+		print("direction: %s" % direction)
+		#var previous_pos = allyA.get_cell_pos() + direction
+		allyB.position = Constants.get_pos_from_grid_cell(collider_pos + direction).clamp(clamp_start, clamp_end)
 		
 
 func resolve_playerMove():

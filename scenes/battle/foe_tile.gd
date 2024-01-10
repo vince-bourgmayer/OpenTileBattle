@@ -29,6 +29,6 @@ func applyDmg(dmg: int):
 	
 	$icon/life_bar.value = hp
 	if !isAlive:
-		set_collision_layer(0)
+		set_collision_layer_value(2, false)
 		playDeathEffect()
 		callback_dic["foe_death"].call(self)

@@ -4,8 +4,8 @@ class_name PlayerTile extends BattleTile
 # Called when the node enters the scene tree for the first time.
 
 var SkillBoost = 0.0
-
 var size: Vector2
+var isDragged = false
 
 func _ready():
 	size = $button.size
@@ -25,7 +25,8 @@ func applyDmg(dmg):
 
 	$icon/life_bar.value = hp
 	if !isAlive:
-		set_collision_layer(0)
+		set_collision_layer_value(1, false)
+		$Area2D.set_collision_layer_value(3, false)
 		playDeathEffect()
 		
 
@@ -44,8 +45,30 @@ func playAttack():
 	tween.set_trans(Tween.TRANS_EXPO)
 	tween.finished.connect(func(): scale = Vector2(0.93,0.93))
 
+func _on_drag():
+	print("dragging %s" % creaName)
+	z_index += 1
+	#set_collision_layer_value(3, false)
+	set_collision_mask_value(3, false)
+	isDragged = true
+	
+	
+func _on_drop():
+	position = Constants.get_pos_from_grid_cell(get_cell_pos())
+	z_index -= 1
+	#set_collision_layer_value(3, true)
+	set_collision_mask_value(3, true)
+	isDragged = false
+	
 
-
+	
+	
 func _on_area_2d_area_entered(area):
 	var area_parent = area.get_parent()
 	callback_dic["ally_collision"].call(self, area_parent)
+
+#
+#func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
+	#var area_parent = area.get_parent()
+	#callback_dic["ally_collision"].call(self, area_parent)
+	##pass # Replace with function body.
