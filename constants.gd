@@ -12,6 +12,8 @@ enum elements {NONE, FIRE, ICE, LIGHTNING, DARKNESS, SOLAR, LUNAR, GRAVITON, PHO
 enum weapons {BOW, SPEAR, STAFF, SWORD}
 enum rarities {D, C, B, A, S, SS, Z}
 enum pincerType {LINE, COLUMN}
+enum skillTargets {SELF, EQUIP, ALL, CHAIN, AREA, COLUMN, LINE, CROSS, COUNTER, PINCER }
+enum skillEffects {HEAL, CURE, BUFF, HIT}
 
 # --- Battle Const & func ---
 const grid_cell_separator = Vector2(2,2) # grid cell separator thickness (in two direction)
@@ -99,7 +101,7 @@ func generateDummyFloor(isFirst: bool):
 	var goblinB = Foe.new("goblin swordman", 105, 15, 14, 5, 8, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
 	goblinB.xp = 200
 	goblinB.coins = 25
-	var foe_number = (randi()% 11 )+4
+	var foe_number = (randi()% 4 )+4
 	
 	var counter = 0
 	while counter < foe_number:
