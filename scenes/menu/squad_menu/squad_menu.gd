@@ -25,7 +25,6 @@ func updateSquadView():
 		else:
 			$squad_char_list.get_child(n).setCharacter(null)
 
-
 func nextSquad():
 	if (currentSquadNumber == 5):
 		currentSquadNumber = 0

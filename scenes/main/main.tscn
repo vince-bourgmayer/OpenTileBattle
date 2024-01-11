@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dxkmo8xdnskro"]
+[gd_scene load_steps=4 format=3 uid="uid://dxkmo8xdnskro"]
 
 [ext_resource type="Script" path="res://scenes/main/main.gd" id="1_4p41b"]
+[ext_resource type="PackedScene" uid="uid://dkgiqvju0si4s" path="res://scenes/GUI_component/menu/nav_top_bar.tscn" id="2_0l6b1"]
 [ext_resource type="Texture2D" uid="uid://dirfypvcvs47n" path="res://art/main_bg.png" id="2_dw7un"]
 
 [node name="main" type="Control"]
@@ -29,3 +30,9 @@ offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 texture = ExtResource("2_dw7un")
+
+[node name="nav_top_bar" parent="." instance=ExtResource("2_0l6b1")]
+layout_mode = 1
+anchors_preset = 10
+anchor_bottom = 0.0
+grow_vertical = 1
