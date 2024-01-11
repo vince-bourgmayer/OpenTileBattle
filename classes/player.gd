@@ -1,33 +1,23 @@
-class_name Player
+class_name Player extends Resource
 
-var coins : int = 0
-var squads : Array 
-var unlocked_characters: Array
-var isNewPlayer = false
+@export var coins : int = 0
+@export var squads : Array [Character]
+@export var unlocked_characters: Array[Character]
+#@export var isNewPlayer = false
 
 func _init():
 	buildSquad()
 	unlocked_characters = []
-	prepareDummySquad()
-	pass
-
+	prepareDummySquad() # for test purposes
 
 func buildSquad():
-	var squad1 = Squad.new()
-	var squad2 = Squad.new()
-	var squad3 = Squad.new()
-	var squad4 = Squad.new()
-	var squad5 = Squad.new()
-	var squad6 = Squad.new()
-	
-	squads = [squad1, squad2, squad3, squad4, squad5, squad6]
-	pass
+	squads = []
+	for n in 6:
+		squads.append(Squad.new())
 
 func getSquad(squadNumb: int): 
 	if (squadNumb < 6 and squadNumb >= 0):
 		return squads[squadNumb]
-
-
 		
 func prepareDummySquad():
 	var samatha = Character.new("Samatha", [], 0)
