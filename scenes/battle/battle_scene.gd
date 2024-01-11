@@ -15,7 +15,7 @@ var grid_botRight
 var xp_gathered : int = 0
 var coins_gathered : int = 0
 
-var movingUnit
+var movingUnit: BattleTile
 var isDraggedUnit = false
 var movingFoeIndex = 0
 
@@ -143,18 +143,8 @@ func on_player_dropped():
 func on_ally_collision(allyA: PlayerTile, allyB: PlayerTile):
 	if movingUnit == allyA:
 		print("	> %s got collision with %s" % [movingUnit.creaName, allyB.creaName])
-		var movingUnit_pos = allyA.position
-		var cell_pos = allyA.get_cell_pos()
-		var collider_pos = allyB.get_cell_pos()
-		#if (cell_pos == collider_pos):
-		print("		> Collision detected on same cell %s" % cell_pos)
-		var mouse_position = get_viewport().get_mouse_position()
-		#var direction: Vector2 =  movingUnit.get_velocity().normalized().round() * -1
-		var direction = mouse_position.direction_to(movingUnit_pos).round()
-		print("direction: %s" % direction)
-		#var previous_pos = allyA.get_cell_pos() + direction
-		allyB.position = Constants.get_pos_from_grid_cell(collider_pos + direction).clamp(clamp_start, clamp_end)
-		
+		allyB.position = Constants.get_pos_from_grid_cell(movingUnit.previous_cell)
+
 
 func resolve_playerMove():
 	state = gameState.PLAYER_RESOLUTION

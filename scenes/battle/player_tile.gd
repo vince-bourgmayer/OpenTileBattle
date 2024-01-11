@@ -5,10 +5,21 @@ class_name PlayerTile extends BattleTile
 
 var SkillBoost = 0.0
 var size: Vector2
+
 var isDragged = false
+var previous_cell: Vector2
+var last_known_cell: Vector2
 
 func _ready():
 	size = $button.size
+
+func _process(_delta):
+	if isDragged:
+		var current_cell = get_cell_pos()
+		if (last_known_cell != current_cell):
+			previous_cell = last_known_cell # it works only because previous_cell & last_known_cell are initialized with same value
+			last_known_cell = current_cell
+		
 
 func disable(val):
 	$button.disabled = val
@@ -50,7 +61,10 @@ func _on_drag():
 	z_index += 1
 	#set_collision_layer_value(3, false)
 	set_collision_mask_value(3, false)
+	last_known_cell = get_cell_pos()
+	previous_cell = last_known_cell
 	isDragged = true
+
 	
 	
 func _on_drop():
@@ -59,16 +73,9 @@ func _on_drop():
 	#set_collision_layer_value(3, true)
 	set_collision_mask_value(3, true)
 	isDragged = false
-	
-
-	
+	last_known_cell = get_cell_pos()
+	previous_cell = last_known_cell
 	
 func _on_area_2d_area_entered(area):
 	var area_parent = area.get_parent()
 	callback_dic["ally_collision"].call(self, area_parent)
-
-#
-#func _on_area_2d_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	#var area_parent = area.get_parent()
-	#callback_dic["ally_collision"].call(self, area_parent)
-	##pass # Replace with function body.
