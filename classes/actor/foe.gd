@@ -8,4 +8,3 @@ class_name Foe extends Creature
 func _init(name : String, stats: CreatureStats, level: int, specy : int, weapon : int, elt : int, rarity: int, portrait: String, art: String, move : int):
 	super(name, stats, level, specy, weapon, elt, rarity, portrait, art)
 	self.move = move
-
