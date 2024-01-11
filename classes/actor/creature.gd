@@ -1,11 +1,7 @@
-class_name Creature
+class_name Creature extends Resource
 	
 @export var name : String
-@export var hp : int
-@export var atk : int
-@export var def : int
-@export var mAtk : int
-@export var mDef : int
+@export var stats: CreatureStats
 @export var level : int
 # use enum in Constants.gd
 @export var specy : Constants.species 
@@ -18,17 +14,12 @@ class_name Creature
 
 const ART_ROOT_PATH : String = "res://art/"
 	
-func _init(name : String, hp : int, atk : int, def : int, mAtk: int, mDef: int, level: int, specy : int, weapon : int, elt : int, rarity: int, portrait: String, art: String):
+func _init(name : String, p_stats: CreatureStats, level: int, specy : int, weapon : int, elt : int, rarity: int, portrait: String, art: String):
 	self.name = name
-	self.hp = hp
-	self.atk = atk
-	self.def = def
-	self.mAtk = mAtk
-	self.mDef = mDef
+	stats = p_stats
 	self.level = level
 	self.specy = specy
 	self.weapon = weapon
 	self.elt = elt
 	self.portrait_path = "%s%s" % [ART_ROOT_PATH, portrait]
 	self.full_art_path = "%s%s" % [ART_ROOT_PATH, art]
-	pass
