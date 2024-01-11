@@ -1,7 +1,7 @@
 class_name Player extends Resource
 
 @export var coins : int = 0
-@export var squads : Array [Character]
+@export var squads : Array[Squad]
 @export var unlocked_characters: Array[Character]
 #@export var isNewPlayer = false
 
@@ -12,12 +12,12 @@ func _init():
 
 func buildSquad():
 	squads = []
-	for n in 6:
-		squads.append(Squad.new())
+	for n in 5:
+		squads.append(Squad.new(n))
 
-func getSquad(squadNumb: int): 
-	if (squadNumb < 6 and squadNumb >= 0):
-		return squads[squadNumb]
+func getSquad(squadId: int):
+	if squadId in range (0, 5):
+		return squads[squadId]
 		
 func prepareDummySquad():
 	var samatha = Character.new("Samatha", [], 0)
