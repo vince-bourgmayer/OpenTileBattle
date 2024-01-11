@@ -26,6 +26,14 @@ window/size/viewport_width=720
 window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
 
+[file_customization]
+
+folder_colors={
+"res://art/": "blue",
+"res://classes/": "orange",
+"res://scenes/": "pink"
+}
+
 [layer_names]
 
 2d_physics/layer_1="Player"
