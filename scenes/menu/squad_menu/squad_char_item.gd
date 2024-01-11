@@ -5,25 +5,39 @@ signal swap_button_clicked
 var hp_label = "PV: %s"
 var lvl_label = "LV %s"
 var character: Character
+var onSwap_callback: Callable
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$swapButton.pressed.connect(self.on_swapClicked)
-	#$swapButton.pressed.connect(self.on_swapClicked())
-	pass # Replace with function body.
+	$swapButton.pressed.connect(self.on_swapClicked)
 
-func _process(_delta):
-	if (character == null):
-		set_no_char()
-		return
+func set_callbacks(callback: Callable):
+	onSwap_callback = callback
+
+func setCharacter(chara: Character):
+	character = chara
+	if character == null:
+		display_empty_item()
+	else:
+		display_character()
 		
-	var job = character.getJob()
+func display_empty_item():
+	$portrait.setCreature(null)
+	$resumeContainer.visibility_layer = 0
+	$xp_box/xpBar.max_value = 1
+	$xp_box/xpBar.value = 0
+	$xp_box/xpBar/missingPx.text = "0"
+	$xp_box/current_lvl.text = lvl_label % "--"
+
+func display_character():
+	var job: Job = character.getJob()
 		
-	$portrait/name.text = "%s %s" % [character.name, job.name]
+	$portrait/name.text = "%s %s" % [character.firstname, job.name]
 	$portrait.setCreature(job)
 	$resumeContainer.set_visible(true)
 	$resumeContainer/stats/boost_icon/boost.text = "%s" % job.skillBoost
-	$resumeContainer/stats/hp.text = hp_label % job.hp
+	$resumeContainer/stats/hp.text = hp_label % job.stats.hp
 	
 	$xp_box/current_lvl.text = lvl_label % job.level
 
@@ -36,21 +50,9 @@ func _process(_delta):
 			
 	$resumeContainer.visibility_layer = 1
 
-func setCharacter(chara: Character):
-	self.character = chara
-
-# Disable view when no character is filling this view
-func set_no_char():
-	$portrait.setCreature(null)
-	$resumeContainer.visibility_layer = 0
-	$xp_box/xpBar.max_value = 1
-	$xp_box/xpBar.value = 0
-	$xp_box/xpBar/missingPx.text = "0"
-	$xp_box/current_lvl.text = lvl_label % "--"
-
 
 func on_swapClicked():
-	swap_button_clicked.emit()
+	onSwap_callback.call()
 	
 func updateJobs():
 	var currentJobId = character.currentJob
@@ -93,4 +95,3 @@ func updateJobs():
 func _on_portrait_gui_input(event):
 	if (event is InputEventMouseButton and event.pressed):
 		print("button clicked")
-	pass # Replace with function body.

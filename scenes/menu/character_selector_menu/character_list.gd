@@ -6,8 +6,8 @@ var char_item_node = preload("res://scenes/menu/character_selector_menu/char_lis
 func _ready():
 	player = Player.new()
 	
-	for character in player.unlocked_characters:
-		print("name: %s" % character.name)
+	for character: Character in player.unlocked_characters:
+		print("name: %s" % character.firstname)
 		var child = char_item_node.instantiate()
 		child.setCharacter(character)
 		add_child(child)

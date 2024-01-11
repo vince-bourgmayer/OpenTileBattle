@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyi1vddt3fdv8"]
+[gd_scene load_steps=5 format=3 uid="uid://dyi1vddt3fdv8"]
 
 [ext_resource type="Script" path="res://scenes/menu/squad_menu/squad_menu.gd" id="1_6jrjo"]
 [ext_resource type="Texture2D" uid="uid://cvp2va6dqs3qh" path="res://art/left_arrow.png" id="1_aqqp5"]
 [ext_resource type="Texture2D" uid="uid://l6gcjt3n18iw" path="res://art/right_arrow.png" id="2_jcyne"]
-[ext_resource type="PackedScene" uid="uid://dfuaenyup5m0v" path="res://scenes/menu/squad_menu/squad_char_item.tscn" id="4_v30ic"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ypbv"]
 bg_color = Color(0.188235, 0.188235, 0.188235, 1)
@@ -56,28 +55,3 @@ layout_mode = 0
 offset_top = 125.0
 offset_right = 720.0
 offset_bottom = 1140.0
-
-[node name="char_1" parent="squad_char_list" instance=ExtResource("4_v30ic")]
-layout_mode = 2
-
-[node name="char_2" parent="squad_char_list" instance=ExtResource("4_v30ic")]
-layout_mode = 2
-
-[node name="char_3" parent="squad_char_list" instance=ExtResource("4_v30ic")]
-layout_mode = 2
-
-[node name="char_4" parent="squad_char_list" instance=ExtResource("4_v30ic")]
-layout_mode = 2
-
-[node name="char_5" parent="squad_char_list" instance=ExtResource("4_v30ic")]
-layout_mode = 2
-
-[node name="char_6" parent="squad_char_list" instance=ExtResource("4_v30ic")]
-layout_mode = 2
-
-[connection signal="swap_button_clicked" from="squad_char_list/char_1" to="." method="_on_char_1_swap_button_clicked"]
-[connection signal="swap_button_clicked" from="squad_char_list/char_2" to="." method="_on_char_2_swap_button_clicked"]
-[connection signal="swap_button_clicked" from="squad_char_list/char_3" to="." method="_on_char_3_swap_button_clicked"]
-[connection signal="swap_button_clicked" from="squad_char_list/char_4" to="." method="_on_char_4_swap_button_clicked"]
-[connection signal="swap_button_clicked" from="squad_char_list/char_5" to="." method="_on_char_5_swap_button_clicked"]
-[connection signal="swap_button_clicked" from="squad_char_list/char_6" to="." method="_on_char_6_swap_button_clicked"]
