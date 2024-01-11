@@ -12,11 +12,11 @@ func _init():
 
 func buildSquad():
 	squads = []
-	for n in 5:
+	for n in 6:
 		squads.append(Squad.new(n))
 
 func getSquad(squadId: int):
-	if squadId in range (0, 5):
+	if squadId in range (0, 6):
 		return squads[squadId]
 		
 func prepareDummySquad():
@@ -51,7 +51,6 @@ func prepareDummySquad():
 	var high_elf_job = Job.new("the Archer", CreatureStats.new(420, 53, 50, 21, 30), 1, Constants.species.ELF, Constants.weapons.BOW, 0, Constants.rarities.SS, "characters/high_elf/high_elf_job1_icon.webp", "", 0.0, true)
 	var high_elf = Character.new("High elf", [high_elf_job], 0)
 	
-	Constants.elements.NONE
 	var goblinSlayer_job = Job.new("the legend", CreatureStats.new(1027, 94, 98, 50, 45), 15, Constants.species.HUMAN, Constants.weapons.SWORD, 0, Constants.rarities.S, "characters/goblin_slayer/goblin_slayer_job1_icon.webp", "", 0.4, true)
 	var goblin_slayer = Character.new("Goblin Slayer", [goblinSlayer_job], 0)
 	
