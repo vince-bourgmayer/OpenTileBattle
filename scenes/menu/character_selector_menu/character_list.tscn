@@ -3,13 +3,20 @@
 [ext_resource type="Script" path="res://scenes/menu/character_selector_menu/character_list.gd" id="1_4k1py"]
 
 [node name="scrollContainer" type="ScrollContainer"]
+clip_contents = false
 custom_minimum_size = Vector2(720, 1030)
 anchors_preset = 10
 anchor_right = 1.0
+offset_top = 155.0
+offset_right = 8.0
+offset_bottom = 1185.0
 grow_horizontal = 2
 horizontal_scroll_mode = 0
+script = ExtResource("1_4k1py")
 
-[node name="character_list" type="VFlowContainer" parent="."]
+[node name="character_list" type="HFlowContainer" parent="."]
 custom_minimum_size = Vector2(720, 1030)
 layout_mode = 2
-script = ExtResource("1_4k1py")
+size_flags_horizontal = 4
+mouse_filter = 2
+alignment = 1

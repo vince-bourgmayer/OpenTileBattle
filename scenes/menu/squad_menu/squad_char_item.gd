@@ -6,6 +6,7 @@ var hp_label = "PV: %s"
 var lvl_label = "LV %s"
 var character: Character
 var onSwap_callback: Callable
+var squad_position: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,7 +16,8 @@ func _ready():
 func set_callbacks(callback: Callable):
 	onSwap_callback = callback
 
-func setCharacter(chara: Character):
+func setCharacter(chara: Character, squad_pos : int):
+	squad_position = squad_pos
 	character = chara
 	if character == null:
 		display_empty_item()
@@ -52,7 +54,7 @@ func display_character():
 
 
 func on_swapClicked():
-	onSwap_callback.call()
+	onSwap_callback.call(squad_position)
 	
 func updateJobs():
 	var currentJobId = character.currentJob

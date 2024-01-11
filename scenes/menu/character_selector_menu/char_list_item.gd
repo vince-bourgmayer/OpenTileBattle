@@ -2,6 +2,7 @@ extends HBoxContainer
 
 var lvl_label = "LV %s"
 var character: Character
+var click_callback: Callable
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -32,3 +33,11 @@ func _process(_delta):
 func set_no_char():
 	$portrait.setCreature(null)
 	$resumeContainer.visibility_layer = 0
+
+func set_callback(callback: Callable):
+	click_callback = callback
+
+func _on_portrait_gui_input(event):
+	if event is InputEventMouseButton and event.pressed:
+		click_callback.call(character)
+

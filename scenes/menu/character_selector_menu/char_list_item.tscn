@@ -77,3 +77,5 @@ mouse_filter = 2
 disabled = true
 button_mask = 0
 text = "Job 3"
+
+[connection signal="gui_input" from="portrait" to="." method="_on_portrait_gui_input"]

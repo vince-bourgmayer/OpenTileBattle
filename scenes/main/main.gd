@@ -4,13 +4,15 @@ enum menu {NONE, STORY, SQUAD, TAVERN, ITEMS}
 var menu_item_scene = load("res://scenes/menu/main_menu_item/main_menu_item.tscn") as PackedScene
 var mainChild
 
+var previousMenu_displayed: menu = menu.NONE
 var currentMenu_displayed : menu = menu.NONE
 var player = Player.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	init_nav_bar()
-
+	$nav_top_bar.setTitle("Home")
+	
 func init_nav_bar():
 	var storyItem = menu_item_scene.instantiate()
 	storyItem.text = "Story"
@@ -50,6 +52,7 @@ func openStoryMenu():
 		var stage = Constants.generateDummyStage()
 		mainChild.setInput(stage, player.getSquad(1))
 		self.add_child(mainChild)
+		$nav_top_bar.setTitle("Story")
 	
 	
 func openSquadMenu():
@@ -61,6 +64,7 @@ func openSquadMenu():
 		self.remove_child(mainChild)
 		mainChild = load("res://scenes/menu/squad_menu/squad_menu.tscn").instantiate()
 		self.add_child(mainChild)
+		$nav_top_bar.setTitle("Squad")
 		
 		
 func openTavernMenu():
@@ -71,7 +75,14 @@ func openTavernMenu():
 		currentMenu_displayed = menu.TAVERN
 		self.remove_child(mainChild)
 		mainChild = load("res://scenes/menu/character_selector_menu/character_list.tscn").instantiate()
+		mainChild.set_on_item_click_callback( func (item) : print("Item clicked %s" % item.character.firstname))
 		self.add_child(mainChild)
+		$nav_top_bar.setTitle("Taverne")
+		
+		
+func open_character_picker():
+	$nav_top_bar.setTitle("Select Character")
+		
 
 #func export_characters_data():
 	#const character_data_list_path = "res://gameData/characters_data.tres"

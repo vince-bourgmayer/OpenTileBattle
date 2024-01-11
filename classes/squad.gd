@@ -7,9 +7,11 @@ func _init(squadId: int):
 	id = squadId
 	
 func changeCharacter(position: int, character: Character):
-	if position in range(0, 5):
+	if (position == 5):
+		print("hey hohoooo")
+	if position in range(0, 6):
 		members[position] = character
 
 func getCharacter(position: int):
-	if position in range(0, 5) and members.has(position):
+	if position in range(0, 6) and members.has(position):
 		return members[position]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dkgiqvju0si4s"]
+[gd_scene load_steps=3 format=3 uid="uid://dkgiqvju0si4s"]
 
+[ext_resource type="Script" path="res://scenes/GUI_component/menu/nav_top_bar.gd" id="1_4uqj3"]
 [ext_resource type="Texture2D" uid="uid://cp5himsgtbgvx" path="res://art/CoinsIcon.webp" id="1_chkbl"]
 
 [node name="nav_top_bar" type="Control"]
@@ -9,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_4uqj3")
 
 [node name="bg_color" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(0, 150)
@@ -25,6 +27,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+mouse_filter = 2
 theme_override_constants/separation = 23
 alignment = 1
 
@@ -41,9 +44,10 @@ vertical_icon_alignment = 0
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
+mouse_filter = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="currentMenu" type="Label" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(450, 50)
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
@@ -56,14 +60,15 @@ theme_override_font_sizes/font_size = 28
 text = "Current Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
-visible_ratio = -0.0833333
+uppercase = true
 
-[node name="currentMenu" type="ColorRect" parent="HBoxContainer/VBoxContainer/Label"]
+[node name="currentMenu_bg" type="ColorRect" parent="HBoxContainer/VBoxContainer/currentMenu"]
 z_index = -1
 custom_minimum_size = Vector2(450, 50)
 layout_mode = 2
 offset_right = 450.0
 offset_bottom = 50.0
+mouse_filter = 2
 color = Color(0.00392157, 0.0117647, 0.0196078, 0.568627)
 
 [node name="coinsIcon" type="TextureRect" parent="HBoxContainer/VBoxContainer"]
