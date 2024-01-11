@@ -1,13 +1,12 @@
-class_name Floor
+class_name Floor extends Resource
 
-var order: int # Floor number in the stage
-var foes : Dictionary # vector 2 position associated to a foe entry
-var playerFighterPos: Array[Vector2] = [] # to remove it is stored in the stage Object
+@export var id: int # Floor number in the stage
+@export var foes : Dictionary = {} # vector 2 position associated to a foe entry
+@export var playerFighterPos: Array[Vector2] = [] # to remove it is stored in the stage Object
 # var traps
 
-func _init(_order: int):
-	self.order = _order
-	pass
+func _init(floorId: int):
+	id = floorId
 
 func addPlayerFighterPos(position: Vector2):
 	if (playerFighterPos.size() < 6):

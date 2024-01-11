@@ -1,19 +1,19 @@
-class_name Stage
+class_name Stage extends Resource
 
-var title : String
-var id : int
-var achieved : bool
-var starting_pos : Array[Vector2] = [] # starting pos for player character
-var bg_path : String # path to background image
+@export var title : String
+@export var id : int
+@export var achieved : bool
+@export var starting_pos : Array[Vector2] = [] # starting pos for player character
+@export var bg_path : String # path to background image
+
+@export var battle_foors : Array[Floor] = []
 # var reward
-var battle_foors : Array[Floor] = []
 # var restriction
-#var introduction
+# var introduction
 
-func _init(_id: int, _title: String):
-	self.id = _id
-	self.title = _title
-
+func _init(stageId: int, stageTitle: String):
+	id = stageId
+	title = stageTitle
 
 func add_floor(battle_floor: Floor):
 	battle_foors.append(battle_floor)
