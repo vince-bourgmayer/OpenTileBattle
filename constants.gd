@@ -94,11 +94,12 @@ func generateDummyFloor(isFirst: bool):
 		floor.addPlayerFighterPos(StarterPos[1])
 		floor.addPlayerFighterPos(StarterPos[2])
 		floor.addPlayerFighterPos(StarterPos[3])
-	
-	var goblinA = Foe.new("goblin spearman", 75, 12, 10, 3, 5, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
+	var goblinA_stats = CreatureStats.new(75, 12, 10, 3, 5)
+	var goblinA = Foe.new("goblin spearman", goblinA_stats, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
 	goblinA.xp = 150
 	goblinA.coins = 20
-	var goblinB = Foe.new("goblin swordman", 105, 15, 14, 5, 8, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
+	var goblinB_stats = CreatureStats.new(105, 15, 14, 5, 8)
+	var goblinB = Foe.new("goblin swordman", goblinB_stats, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
 	goblinB.xp = 200
 	goblinB.coins = 25
 	var foe_number = (randi()% 4 )+4

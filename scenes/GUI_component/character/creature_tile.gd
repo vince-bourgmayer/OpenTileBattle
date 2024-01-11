@@ -10,8 +10,8 @@ func displayCreature(creature: Creature):
 	visibility_layer = 1
 	#var texture = Texture2D.new()
 	texture = load(creature.portrait_path)
-	$life_bar.max_value = creature.hp
-	$life_bar.value = creature.hp
+	$life_bar.max_value = creature.stats.hp
+	$life_bar.value = creature.stats.hp
 	drawEltIcon(creature.elt)
 	drawWeaponIcon(creature.weapon)
 

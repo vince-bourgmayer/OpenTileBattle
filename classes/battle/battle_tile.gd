@@ -20,12 +20,12 @@ func set_callables(dictionary : Dictionary):
 
 func setCreature(creature: Creature):
 	creaName = creature.name
-	maxHp = creature.hp
-	hp = creature.hp
-	atk = creature.atk
-	def = creature.def
-	mAtk = creature.mAtk
-	mDef = creature.mDef
+	maxHp = creature.stats.hp
+	hp = creature.stats.hp
+	atk = creature.stats.atk
+	def = creature.stats.def
+	mAtk = creature.stats.mAtk
+	mDef = creature.stats.mDef
 	elt = creature.elt
 	weapon = creature.weapon
 
