@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CharactersList" load_steps=38 format=3]
+[gd_resource type="Resource" script_class="CharactersList" load_steps=38 format=3 uid="uid://df6w37cbh3ru7"]
 
 [ext_resource type="Script" path="res://classes/actor/job.gd" id="1_q8c7e"]
 [ext_resource type="Script" path="res://classes/actor/creature_stats.gd" id="2_fxsds"]

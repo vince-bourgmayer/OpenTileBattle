@@ -8,12 +8,15 @@ const maxCharPerSquad = 6
 
 # --- enum ---
 enum species {WILD_BEAST, LIZARD_FOLK, STONE_FOLK, HUMAN, BEAST_FOLK, CELL, SPIRIT, MACHINE, CELESTIAL, ELF}
-enum elements {NONE, FIRE, ICE, LIGHTNING, DARKNESS, SOLAR, LUNAR, GRAVITON, PHOTON, HEALING, REMEDY}
+enum elements {NONE, FIRE, ICE, LIGHTNING, DARKNESS, SOLAR, LUNAR, GRAVITON, PHOTON, HEALING, REMEDY, NEUTRAL}
 enum weapons {BOW, SPEAR, STAFF, SWORD}
 enum rarities {D, C, B, A, S, SS, Z}
 enum pincerType {LINE, COLUMN}
-enum skillTargets {SELF, EQUIP, ALL, CHAIN, AREA, COLUMN, LINE, CROSS, COUNTER, PINCER }
-enum skillEffects {HEAL, CURE, BUFF, HIT}
+
+# enum ---> skills
+enum skill_tiers {NONE = -1, TIER_1 =0, TIER_2 =1, TIER_3 =2, TIER_4 = 3}
+enum skill_targets {SELF, EQUIP, ALL, CHAIN, AREA, COLUMN, LINE, CROSS, COUNTER, PINCER }
+enum skill_effect_type {HEAL, CURE, BUFF, HIT}
 
 # --- Battle Const & func ---
 const grid_cell_separator = Vector2(2,2) # grid cell separator thickness (in two direction)

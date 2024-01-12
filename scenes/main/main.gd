@@ -11,6 +11,7 @@ var player = Player.new()
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	init_nav_bar()
+	SkillsList.new()
 	$nav_top_bar.setTitle("Home")
 	
 func init_nav_bar():
