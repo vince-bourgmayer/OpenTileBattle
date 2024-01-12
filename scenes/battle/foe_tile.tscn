@@ -1,7 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://c30kauqbfkxd0"]
+[gd_scene load_steps=6 format=3 uid="uid://c30kauqbfkxd0"]
 
 [ext_resource type="Script" path="res://scenes/battle/foe_tile.gd" id="1_h3xc3"]
 [ext_resource type="PackedScene" uid="uid://cymvq2mn58fh1" path="res://scenes/GUI_component/character/creature_tile.tscn" id="2_cjflc"]
+[ext_resource type="Shader" path="res://shaders/player_tile.gdshader" id="3_jk2j1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w8i8o"]
+shader = ExtResource("3_jk2j1")
+shader_parameter/corner_scale = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cvlrb"]
 size = Vector2(80, 80)
@@ -14,6 +19,7 @@ input_pickable = true
 script = ExtResource("1_h3xc3")
 
 [node name="icon" parent="." instance=ExtResource("2_cjflc")]
+material = SubResource("ShaderMaterial_w8i8o")
 offset_left = -53.0
 offset_top = -53.0
 offset_right = 53.0

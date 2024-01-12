@@ -86,11 +86,12 @@ func load_next_floor():
 	
 
 func generate_player_tiles(squad: Squad, battle_floor: Floor):
-	for n in Constants.maxCharPerSquad-1:
-		var character = squad.getCharacter(n)
+	for n in Constants.maxCharPerSquad:
+		var character: Character = squad.getCharacter(n)
 		if character == null: 
 			continue
 		else:
+			print("Add tile for : %s" % character.firstname)
 			var fighter = character.getJob()
 			var tile = player_tile.instantiate()
 			tile.setCreature(fighter)

@@ -89,11 +89,13 @@ func generateDummyFloor(isFirst: bool):
 	var StarterPos = []
 	
 	if isFirst:
-		StarterPos.append_array([Vector2(5,5), Vector2(1,1), Vector2(1,3),Vector2(0,0)])
+		StarterPos.append_array([Vector2(5,5), Vector2(1,1), Vector2(1,3),Vector2(0,0),Vector2(0,4),Vector2(5,7)])
 		floor.addPlayerFighterPos(StarterPos[0])
 		floor.addPlayerFighterPos(StarterPos[1])
 		floor.addPlayerFighterPos(StarterPos[2])
 		floor.addPlayerFighterPos(StarterPos[3])
+		floor.addPlayerFighterPos(StarterPos[4])
+		floor.addPlayerFighterPos(StarterPos[5])
 	var goblinA_stats = CreatureStats.new(75, 12, 10, 3, 5)
 	var goblinA = Foe.new("goblin spearman", goblinA_stats, 3, Constants.species.WILD_BEAST, Constants.weapons.SPEAR, Constants.elements.NONE, Constants.rarities.D, "foes/goblin.webp", "", 3)
 	goblinA.xp = 150
@@ -102,7 +104,7 @@ func generateDummyFloor(isFirst: bool):
 	var goblinB = Foe.new("goblin swordman", goblinB_stats, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
 	goblinB.xp = 200
 	goblinB.coins = 25
-	var foe_number = (randi()% 4 )+4
+	var foe_number = (randi()% 13 )+4
 	
 	var counter = 0
 	while counter < foe_number:

@@ -9,7 +9,7 @@ var size: Vector2
 var isDragged = false
 var previous_cell: Vector2
 var last_known_cell: Vector2
-
+var hover: ColorRect
 func _ready():
 	size = $button.size
 
@@ -57,6 +57,12 @@ func playAttack():
 	tween.finished.connect(func(): scale = Vector2(0.93,0.93))
 
 func _on_drag():
+	hover = ColorRect.new()
+	hover.size = size+ Vector2(15,15)
+	hover.color = Color("ffffff", 0.5)
+	hover.position = $icon.position - Vector2(11.5,11.5)
+	hover.material = $icon.material
+	add_child(hover)
 	print("dragging %s" % creaName)
 	z_index += 1
 	#set_collision_layer_value(3, false)
@@ -68,6 +74,7 @@ func _on_drag():
 	
 	
 func _on_drop():
+	remove_child(hover)
 	position = Constants.get_pos_from_grid_cell(get_cell_pos())
 	z_index -= 1
 	#set_collision_layer_value(3, true)

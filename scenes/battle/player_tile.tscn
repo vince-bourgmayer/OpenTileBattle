@@ -1,9 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://cw2j1qp8vgkty"]
+[gd_scene load_steps=10 format=3 uid="uid://cw2j1qp8vgkty"]
 
 [ext_resource type="Script" path="res://scenes/battle/player_tile.gd" id="1_agh68"]
+[ext_resource type="Shader" path="res://shaders/player_tile.gdshader" id="1_e6xhj"]
 [ext_resource type="PackedScene" uid="uid://cymvq2mn58fh1" path="res://scenes/GUI_component/character/creature_tile.tscn" id="1_y3h8i"]
 [ext_resource type="Texture2D" uid="uid://b0nl0uy8l1y1b" path="res://art/characters/bonna/Bonna_job1_icon.webp" id="2_frc0f"]
 [ext_resource type="Texture2D" uid="uid://c8gdgfik6k2nx" path="res://art/battle/player_tile_button_tex.webp" id="4_601m7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x0piq"]
+shader = ExtResource("1_e6xhj")
+shader_parameter/corner_scale = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kacby"]
+shader = ExtResource("1_e6xhj")
+shader_parameter/corner_scale = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8w5s0"]
 radius = 39.8
@@ -22,6 +31,7 @@ script = ExtResource("1_agh68")
 
 [node name="icon" parent="." instance=ExtResource("1_y3h8i")]
 z_index = 1
+material = SubResource("ShaderMaterial_x0piq")
 offset_left = -53.0
 offset_top = -53.0
 offset_right = 53.0
@@ -30,6 +40,7 @@ mouse_filter = 2
 texture = ExtResource("2_frc0f")
 
 [node name="button" type="Button" parent="."]
+material = SubResource("ShaderMaterial_kacby")
 custom_minimum_size = Vector2(106, 106)
 offset_left = -57.0
 offset_top = -57.0
