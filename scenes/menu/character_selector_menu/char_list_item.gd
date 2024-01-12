@@ -18,7 +18,7 @@ func _process(_delta):
 	else:
 		var job: Job = character.getJob()
 		$resumeContainer/stats/level.text = lvl_label % job.level
-		$resumeContainer/name.text = "%s%s" % [character.firstname, job.name]
+		$resumeContainer/name.text = "%s %s" % [character.firstname, job.name]
 		$resumeContainer/stats/boost_icon/boost.text = str(job.skillBoost)
 		$portrait.setCreature(job)
 		$resumeContainer.visibility_layer = 1

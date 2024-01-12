@@ -1,0 +1,364 @@
+[gd_resource type="Resource" script_class="CharactersList" load_steps=38 format=3]
+
+[ext_resource type="Script" path="res://classes/actor/job.gd" id="1_q8c7e"]
+[ext_resource type="Script" path="res://classes/actor/creature_stats.gd" id="2_fxsds"]
+[ext_resource type="Script" path="res://classes/actor/character.gd" id="3_3wtil"]
+[ext_resource type="Script" path="res://gameData/characters_list.gd" id="4_yj1kw"]
+
+[sub_resource type="Resource" id="Resource_u0ygc"]
+script = ExtResource("2_fxsds")
+hp = 2573
+atk = 150
+def = 148
+mAtk = 147
+mDef = 159
+
+[sub_resource type="Resource" id="Resource_782dk"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.5
+xp = 52500
+enabled = true
+name = "the Spearmaiden"
+stats = SubResource("Resource_u0ygc")
+level = 32
+specy = 3
+weapon = 1
+elt = 3
+rarity = 0
+portrait_path = "res://art/characters/samatha/Samatha_job1_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_ju4d3"]
+script = ExtResource("2_fxsds")
+hp = 712
+atk = 90
+def = 75
+mAtk = 127
+mDef = 119
+
+[sub_resource type="Resource" id="Resource_l5fyo"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.5
+xp = 8400
+enabled = true
+name = "the Huntress"
+stats = SubResource("Resource_ju4d3")
+level = 12
+specy = 3
+weapon = 1
+elt = 3
+rarity = 0
+portrait_path = "res://art/characters/samatha/Samatha_job2_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_11srm"]
+script = ExtResource("2_fxsds")
+hp = 312
+atk = 51
+def = 50
+mAtk = 54
+mDef = 48
+
+[sub_resource type="Resource" id="Resource_c10w8"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.5
+xp = 0
+enabled = false
+name = "the Foestalker"
+stats = SubResource("Resource_11srm")
+level = 1
+specy = 3
+weapon = 1
+elt = 3
+rarity = 0
+portrait_path = "res://art/characters/samatha/Samatha_job2_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_l0rjw"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_782dk"), SubResource("Resource_l5fyo"), SubResource("Resource_c10w8")])
+currentJob = 0
+firstname = "Samatha"
+
+[sub_resource type="Resource" id="Resource_rf525"]
+script = ExtResource("2_fxsds")
+hp = 4208
+atk = 50
+def = 48
+mAtk = 47
+mDef = 59
+
+[sub_resource type="Resource" id="Resource_e6fa5"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 3.2
+xp = 126333
+enabled = true
+name = "the Idol"
+stats = SubResource("Resource_rf525")
+level = 53
+specy = 4
+weapon = 2
+elt = 3
+rarity = 0
+portrait_path = "res://art/characters/bonna/Bonna_job1_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_w8n3v"]
+script = ExtResource("2_fxsds")
+hp = 470
+atk = 50
+def = 48
+mAtk = 47
+mDef = 59
+
+[sub_resource type="Resource" id="Resource_1g8i6"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.8
+xp = 1050
+enabled = true
+name = "the Lyricist"
+stats = SubResource("Resource_w8n3v")
+level = 2
+specy = 4
+weapon = 2
+elt = 3
+rarity = 0
+portrait_path = "res://art/characters/bonna/Bonna_job2_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_8rjhy"]
+script = ExtResource("2_fxsds")
+hp = 511
+atk = 59
+def = 52
+mAtk = 50
+mDef = 49
+
+[sub_resource type="Resource" id="Resource_dll2e"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 3.2
+xp = 0
+enabled = false
+name = "the PunkRocker"
+stats = SubResource("Resource_8rjhy")
+level = 1
+specy = 4
+weapon = 2
+elt = 3
+rarity = 0
+portrait_path = "res://art/characters/bonna/Bonna_job3_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_uya3q"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_e6fa5"), SubResource("Resource_1g8i6"), SubResource("Resource_dll2e")])
+currentJob = 1
+firstname = "Bonna"
+
+[sub_resource type="Resource" id="Resource_mngu3"]
+script = ExtResource("2_fxsds")
+hp = 407
+atk = 21
+def = 31
+mAtk = 51
+mDef = 52
+
+[sub_resource type="Resource" id="Resource_gdb5d"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.1
+xp = 0
+enabled = true
+name = ""
+stats = SubResource("Resource_mngu3")
+level = 1
+specy = 3
+weapon = 2
+elt = 10
+rarity = 0
+portrait_path = "res://art/characters/mizury/Mizury_job1_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_wcejh"]
+script = ExtResource("2_fxsds")
+hp = 466
+atk = 24
+def = 34
+mAtk = 54
+mDef = 55
+
+[sub_resource type="Resource" id="Resource_8u6jm"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.0
+xp = 0
+enabled = false
+name = "DNA"
+stats = SubResource("Resource_wcejh")
+level = 1
+specy = 3
+weapon = 2
+elt = 10
+rarity = 0
+portrait_path = "res://art/characters/mizury/Mizury_job2_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_ix3i1"]
+script = ExtResource("2_fxsds")
+hp = 524
+atk = 27
+def = 37
+mAtk = 57
+mDef = 58
+
+[sub_resource type="Resource" id="Resource_16yos"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.0
+xp = 0
+enabled = false
+name = "RNA"
+stats = SubResource("Resource_ix3i1")
+level = 1
+specy = 3
+weapon = 2
+elt = 10
+rarity = 0
+portrait_path = "res://art/characters/mizury/Mizury_job2_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_7fpfi"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_gdb5d"), SubResource("Resource_8u6jm"), SubResource("Resource_16yos")])
+currentJob = 0
+firstname = "Guardian mizury"
+
+[sub_resource type="Resource" id="Resource_8dn25"]
+script = ExtResource("2_fxsds")
+hp = 420
+atk = 53
+def = 50
+mAtk = 21
+mDef = 30
+
+[sub_resource type="Resource" id="Resource_e2mtn"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.0
+xp = 0
+enabled = true
+name = "the Archer"
+stats = SubResource("Resource_8dn25")
+level = 1
+specy = 9
+weapon = 0
+elt = 0
+rarity = 0
+portrait_path = "res://art/characters/high_elf/high_elf_job1_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_q7ki6"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_e2mtn")])
+currentJob = 0
+firstname = "High elf"
+
+[sub_resource type="Resource" id="Resource_7k3c6"]
+script = ExtResource("2_fxsds")
+hp = 1027
+atk = 94
+def = 98
+mAtk = 50
+mDef = 45
+
+[sub_resource type="Resource" id="Resource_mc6a7"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.4
+xp = 0
+enabled = true
+name = "the legend"
+stats = SubResource("Resource_7k3c6")
+level = 15
+specy = 3
+weapon = 3
+elt = 0
+rarity = 0
+portrait_path = "res://art/characters/goblin_slayer/goblin_slayer_job1_icon.webp"
+full_art_path = "res://art/"
+
+[sub_resource type="Resource" id="Resource_uqr26"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_mc6a7")])
+currentJob = 0
+firstname = "Goblin Slayer"
+
+[sub_resource type="Resource" id="Resource_1fa2r"]
+script = ExtResource("2_fxsds")
+hp = 400
+atk = 35
+def = 40
+mAtk = 45
+mDef = 57
+
+[sub_resource type="Resource" id="Resource_yob65"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.4
+xp = 0
+enabled = true
+name = "the newbie"
+stats = SubResource("Resource_1fa2r")
+level = 1
+specy = 3
+weapon = 2
+elt = 0
+rarity = 0
+portrait_path = "res://art/characters/prietress/prietress_job1_icon.webp"
+full_art_path = "res://art/characters/prietress/prietress_job1.webp"
+
+[sub_resource type="Resource" id="Resource_luo1q"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_yob65")])
+currentJob = 0
+firstname = "Young prietress"
+
+[sub_resource type="Resource" id="Resource_grmrk"]
+script = ExtResource("2_fxsds")
+hp = 450
+atk = 35
+def = 40
+mAtk = 45
+mDef = 57
+
+[sub_resource type="Resource" id="Resource_0lwk2"]
+script = ExtResource("1_q8c7e")
+currentJob = 1
+skillBoost = 0.4
+xp = 0
+enabled = true
+name = "the cheese lover"
+stats = SubResource("Resource_grmrk")
+level = 1
+specy = 1
+weapon = 3
+elt = 0
+rarity = 0
+portrait_path = "res://art/characters/lizard_shaman/lizard_shaman_job1_icon.webp"
+full_art_path = "res://art/characters/lizard_shaman/lizard_shaman_job1.webp"
+
+[sub_resource type="Resource" id="Resource_am0tl"]
+script = ExtResource("3_3wtil")
+jobs = Array[ExtResource("1_q8c7e")]([SubResource("Resource_0lwk2")])
+currentJob = 0
+firstname = "Shaman"
+
+[resource]
+script = ExtResource("4_yj1kw")
+characters = Array[ExtResource("3_3wtil")]([SubResource("Resource_l0rjw"), SubResource("Resource_uya3q"), SubResource("Resource_7fpfi"), SubResource("Resource_q7ki6"), SubResource("Resource_uqr26"), SubResource("Resource_luo1q"), SubResource("Resource_am0tl")])

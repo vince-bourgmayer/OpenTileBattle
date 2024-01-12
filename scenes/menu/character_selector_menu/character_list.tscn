@@ -14,7 +14,7 @@ grow_horizontal = 2
 horizontal_scroll_mode = 0
 script = ExtResource("1_4k1py")
 
-[node name="character_list" type="HFlowContainer" parent="."]
+[node name="character_list" type="VFlowContainer" parent="."]
 custom_minimum_size = Vector2(720, 1030)
 layout_mode = 2
 size_flags_horizontal = 4

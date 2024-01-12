@@ -1,5 +1,5 @@
 extends Control
-enum menu {NONE, STORY, SQUAD, TAVERN, ITEMS}
+enum menu {NONE, STORY, SQUAD, TAVERN, ITEMS, SAVE}
 # main
 var menu_item_scene = load("res://scenes/menu/main_menu_item/main_menu_item.tscn") as PackedScene
 var mainChild
@@ -37,6 +37,12 @@ func init_nav_bar():
 	chestItem.text = "Items"
 	chestItem.icon = preload("res://art/Metal_Ticket.webp")
 	$navBar.add_child(chestItem)
+	
+	var saveItem = menu_item_scene.instantiate()
+	saveItem.text = "Save"
+	saveItem.pressed.connect(player.unlocked_characters._save)
+	$navBar.add_child(saveItem)
+	
 	pass
 	
 
@@ -75,7 +81,7 @@ func openTavernMenu():
 		currentMenu_displayed = menu.TAVERN
 		self.remove_child(mainChild)
 		mainChild = load("res://scenes/menu/character_selector_menu/character_list.tscn").instantiate()
-		mainChild.set_on_item_click_callback( func (item) : print("Item clicked %s" % item.character.firstname))
+		mainChild.set_on_item_click_callback( func (item) : print("Item clicked %s" % item.firstname))
 		self.add_child(mainChild)
 		$nav_top_bar.setTitle("Taverne")
 		

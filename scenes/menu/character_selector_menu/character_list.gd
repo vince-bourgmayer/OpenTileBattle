@@ -5,7 +5,7 @@ var char_item_node = preload("res://scenes/menu/character_selector_menu/char_lis
 var on_item_click_callBack: Callable
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	for character: Character in get_parent().player.unlocked_characters:
+	for character: Character in get_parent().player.unlocked_characters.characters:
 		print("name: %s" % character.firstname)
 		var child = char_item_node.instantiate()
 		child.setCharacter(character)
