@@ -12,7 +12,7 @@ var mDef : int
 var isAlive = true
 var elt : Constants.elements = Constants.elements.NONE
 var weapon : Constants.weapons = Constants.weapons.STAFF
-
+var skills : Array[Skill] = []
 var callback_dic : Dictionary
 
 func set_callables(dictionary : Dictionary):
@@ -28,6 +28,7 @@ func setCreature(creature: Creature):
 	mDef = creature.stats.mDef
 	elt = creature.elt
 	weapon = creature.weapon
+	skills.append_array(creature.skills)
 
 func applyDmg(dmg : int):
 	if hp - dmg < 0:

@@ -7,6 +7,12 @@ func _init():
 	
 	
 func generate_test_characters():
+	
+	var gigasword_vertical_skill = Skill.new("Gigasword, Vertical (1), 70%", HitSkillEffect.new(Constants.skill_tiers.TIER_2, Constants.elements.NONE, Constants.weapons.SWORD), 70, Constants.skill_targets.VERTICAL)
+	var megasword_skill = Skill.new("Megasword, Lateral (1), 100%", HitSkillEffect.new(Constants.skill_tiers.TIER_1, Constants.elements.NONE, Constants.weapons.SWORD), 100, Constants.skill_targets.LATERAL)
+	var Tempest_area = Skill.new("Tempest, Area(1), 30%", HitSkillEffect.new(Constants.skill_tiers.TIER_3, Constants.elements.LIGHTNING, Constants.weapons.STAFF), 30, Constants.skill_targets.AREA)
+	
+	
 	var samatha = Character.new("Samatha", [], 0)
 	var samatha_job1_stats = CreatureStats.new(2573, 150, 148, 147, 159)
 	var samatha_job1 = Job.new("the Spearmaiden", samatha_job1_stats, 32, Constants.species.HUMAN, Constants.weapons.SPEAR, Constants.elements.LIGHTNING, Constants.rarities.S, "characters/samatha/Samatha_job1_icon.webp", "", 0.5, true)
@@ -24,6 +30,8 @@ func generate_test_characters():
 	bonna_job1.addXp(126333)
 	var bonna_job2_stats = CreatureStats.new(470, 50, 48, 47, 59)
 	var bonna_job2 = Job.new("the Lyricist", bonna_job2_stats, 2, 4, 2, 3, 4, "characters/bonna/Bonna_job2_icon.webp", "", 0.8, true)
+	bonna_job2.skills.append(Tempest_area)
+	
 	bonna_job2.addXp(1050)
 	var bonna_job3_stats = CreatureStats.new(511, 59, 52, 50, 49)
 	var bonna_job3 = Job.new("the PunkRocker", bonna_job3_stats, 1, 4, 2, 3, 4, "characters/bonna/Bonna_job3_icon.webp", "", 3.2, false)
@@ -39,12 +47,14 @@ func generate_test_characters():
 	var high_elf = Character.new("High elf", [high_elf_job], 0)
 	
 	var goblinSlayer_job = Job.new("the legend", CreatureStats.new(1027, 94, 98, 50, 45), 15, Constants.species.HUMAN, Constants.weapons.SWORD, 0, Constants.rarities.S, "characters/goblin_slayer/goblin_slayer_job1_icon.webp", "", 0.4, true)
+	goblinSlayer_job.skills.append(megasword_skill)
 	var goblin_slayer = Character.new("Goblin Slayer", [goblinSlayer_job], 0)
 	
 	var prietress_job = Job.new("the newbie", CreatureStats.new(400, 35, 40, 45, 57), 1, Constants.species.HUMAN, Constants.weapons.STAFF, 0, Constants.rarities.S, "characters/prietress/prietress_job1_icon.webp", "characters/prietress/prietress_job1.webp", 0.4, true)
 	var prietress = Character.new("Young prietress", [prietress_job], 0)
 
 	var lizard_shaman_job = Job.new("the cheese lover", CreatureStats.new(450, 35, 40, 45, 57), 1, Constants.species.LIZARD_FOLK, Constants.weapons.SWORD, 0, Constants.rarities.SS, "characters/lizard_shaman/lizard_shaman_job1_icon.webp", "characters/lizard_shaman/lizard_shaman_job1.webp", 0.4, true)
+	lizard_shaman_job.skills.append(gigasword_vertical_skill)
 	var lizard_shaman = Character.new("Shaman", [lizard_shaman_job], 0)
 	
 	characters.append(samatha)

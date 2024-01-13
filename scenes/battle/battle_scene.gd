@@ -151,16 +151,25 @@ func resolve_playerMove():
 	state = gameState.PLAYER_RESOLUTION
 	print("\n|--------PLAYER RESOLUTION--------|\n")
 	var playerTiles = get_tree().get_nodes_in_group(player_group) as Array[PlayerTile]
-	var foes = get_tree().get_nodes_in_group(foe_group) as Array[FoeTile]
 	
+	var foes : Array[BattleTile]
+	for node in get_tree().get_nodes_in_group(foe_group):
+		foes.append(node)
+
 	var playerResolver = PlayerResolver.new(playerTiles, foes)
 	
 	playerResolver.findPincers()
 
-	for pincer in playerResolver.pincers:
+	for pincer: Pincer in playerResolver.pincers:
 		apply_pincer_damage(pincer)
 		await get_tree().create_timer(1.15).timeout
-	
+		
+		#play skills	
+		trigger_creature_skill(pincer.start_pincer, foes)
+		trigger_creature_skill(pincer.end_pincer, foes)
+		for ally : BattleTile in pincer.allies:
+			trigger_creature_skill(ally, foes)
+			
 	movingUnit = null
 
 	if !is_some_foes_alive(foes):
@@ -212,6 +221,9 @@ func apply_pincer_damage(pincer: Pincer):
 			$GUI/battleTopBar.add_power(dmg.dmg/20)
 			foe.applyDmg(dmg.dmg)
 	
+func trigger_creature_skill(caster: BattleTile, foes: Array[BattleTile]):
+	for skill in caster.skills:
+		skill.perform(caster, foes)
 	
 func _on_foe_death(foe: FoeTile):
 	print("		o><  %s is dead" % foe.creaName)

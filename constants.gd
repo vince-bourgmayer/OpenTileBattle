@@ -15,7 +15,7 @@ enum pincerType {LINE, COLUMN}
 
 # enum ---> skills
 enum skill_tiers {NONE = -1, TIER_1 =0, TIER_2 =1, TIER_3 =2, TIER_4 = 3}
-enum skill_targets {SELF, EQUIP, ALL, CHAIN, AREA, COLUMN, LINE, CROSS, COUNTER, PINCER }
+enum skill_targets {SELF, EQUIP, LATERAL, VERTICAL, ALL, CHAIN, AREA, COLUMN, LINE, CROSS, COUNTER, PINCER }
 enum skill_effect_type {HEAL, CURE, BUFF, HIT}
 
 # --- Battle Const & func ---

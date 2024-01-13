@@ -9,6 +9,7 @@ class_name Creature extends Resource
 @export var elt : Constants.elements
 @export var rarity : Constants.rarities
 
+@export var skills: Array[Skill] = []
 @export var portrait_path : String
 @export var full_art_path : String
 
