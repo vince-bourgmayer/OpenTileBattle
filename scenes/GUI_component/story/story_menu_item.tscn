@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://bgehio5f54h7j"]
+
+[ext_resource type="Script" path="res://scenes/GUI_component/story/story_menu_item.gd" id="1_4cp8p"]
+[ext_resource type="Shader" path="res://shaders/player_tile.gdshader" id="2_i1fs7"]
+[ext_resource type="Texture2D" uid="uid://0xuichyrqwmd" path="res://art/GUI_components/story_menu_item.webp" id="3_dm8y0"]
+[ext_resource type="Texture2D" uid="uid://dxfqhj23uwexf" path="res://art/GUI_components/story_menu_item_clicked.webp" id="4_4a7gv"]
+[ext_resource type="Texture2D" uid="uid://iy00rjhigxo" path="res://art/GUI_components/story_menu_item_hover.webp" id="5_feh6g"]
+[ext_resource type="Texture2D" uid="uid://dfdhxng7rhqce" path="res://art/GUI_components/story_item_disabled.webp" id="6_ykliu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2nnco"]
+shader = ExtResource("2_i1fs7")
+shader_parameter/corner_scale = 0.385
+
+[node name="story_item" type="Control"]
+z_index = 1
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+mouse_filter = 2
+script = ExtResource("1_4cp8p")
+
+[node name="bg" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_2nnco")
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="button" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 75.0
+texture_normal = ExtResource("3_dm8y0")
+texture_pressed = ExtResource("4_4a7gv")
+texture_hover = ExtResource("5_feh6g")
+texture_disabled = ExtResource("6_ykliu")
+
+[node name="title" type="Label" parent="."]
+custom_minimum_size = Vector2(500, 75)
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 75.0
+theme_override_colors/font_outline_color = Color(0.192157, 0.380392, 0.380392, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 29
+text = "TITRE"
+horizontal_alignment = 1
+vertical_alignment = 1

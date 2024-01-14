@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckx0bqmdsnbo4"]
+
+[ext_resource type="Script" path="res://scenes/menu/story_menu/story_menu.gd" id="1_b1a5p"]
+
+[node name="ScrollContainer" type="ScrollContainer"]
+custom_minimum_size = Vector2(720, 1010)
+offset_top = 175.0
+offset_right = 728.0
+offset_bottom = 1205.0
+horizontal_scroll_mode = 0
+script = ExtResource("1_b1a5p")
+
+[node name="storiesContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(720, 1030)
+layout_mode = 2
+theme_override_constants/separation = 15

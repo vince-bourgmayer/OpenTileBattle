@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://iy00rjhigxo"
-path="res://.godot/imported/story_menu_item_hover.webp-a5c5b555293436ee94eb80ac4ada14f5.ctex"
+uid="uid://cuigsglor2qlu"
+path="res://.godot/imported/terra_battle_story_item_bg.webp-c22aeeeaf3006f0bbd3292c99e4e3452.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/story/story_menu_item_hover.webp"
-dest_files=["res://.godot/imported/story_menu_item_hover.webp-a5c5b555293436ee94eb80ac4ada14f5.ctex"]
+source_file="res://art/story/terra_battle_story_item_bg.webp"
+dest_files=["res://.godot/imported/terra_battle_story_item_bg.webp-c22aeeeaf3006f0bbd3292c99e4e3452.ctex"]
 
 [params]
 
