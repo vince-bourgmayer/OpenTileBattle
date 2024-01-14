@@ -9,10 +9,8 @@ func _enter_tree():
 	
 	for story in stories:
 		var item: StoryMenuItem = story_item.instantiate()
+		item.clicked_callback = Callable(get_parent().open_chapter_menu.bind(story))
 		item._set_story(story)
 		story_items.append(item)
 		$storiesContainer.add_child(item)
-
-
-func _ready():
-	print("YAHOO")
+	

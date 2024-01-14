@@ -1,5 +1,5 @@
 extends Control
-enum menu {NONE, STORY, SQUAD, TAVERN, ITEMS, SAVE}
+enum menu {NONE, STORY, CHAPTER, SQUAD, TAVERN, ITEMS, SAVE}
 # main
 var menu_item_scene = load("res://scenes/menu/main_menu_item/main_menu_item.tscn") as PackedScene
 var mainChild
@@ -90,8 +90,16 @@ func openTavernMenu():
 		
 func open_character_picker():
 	$nav_top_bar.setTitle("Select Character")
+	
+	
+func open_chapter_menu(story: Story):
+	currentMenu_displayed = menu.CHAPTER
+	$nav_top_bar.setTitle("%s - Chapters" % story.title)
+	self.remove_child(mainChild)
+	mainChild = load("res://scenes/menu/story_menu/chapter_menu.tscn").instantiate()
+	mainChild.set_story(story)
+	self.add_child(mainChild)
 		
-
 #func export_characters_data():
 	#const character_data_list_path = "res://gameData/characters_data.tres"
 	#

@@ -12,7 +12,6 @@ shader = ExtResource("2_i1fs7")
 shader_parameter/corner_scale = 0.385
 
 [node name="story_item" type="Control"]
-z_index = 1
 custom_minimum_size = Vector2(500, 75)
 layout_mode = 3
 anchors_preset = 0
@@ -51,3 +50,4 @@ theme_override_font_sizes/font_size = 29
 text = "TITRE"
 horizontal_alignment = 1
 vertical_alignment = 1
+clip_text = true
