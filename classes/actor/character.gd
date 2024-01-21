@@ -9,5 +9,5 @@ func _init(firstname: String, jobs_array: Array[Job], currentJob_id: int):
 	self.currentJob = currentJob_id
 	self.firstname = firstname
 
-func getJob():
+func getJob() -> Job:
 	return jobs[currentJob]

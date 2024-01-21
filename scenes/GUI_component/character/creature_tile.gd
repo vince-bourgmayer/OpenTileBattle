@@ -1,4 +1,4 @@
-extends TextureRect
+class_name CreatureTile extends TextureRect
 
 func setCreature(creature: Creature):
 	if (creature == null):

@@ -78,7 +78,7 @@ const lifeBar_darkBlue = "30656d"
 const lifeBar_lightblue = "3dd0e4"
 
 # --- test ---
-func generateDummyStage():
+func generateDummyStage() -> Stage:
 	var stage = Stage.new(1, "Is he here ?")
 	
 	stage.add_floor(generateDummyFloor(true))
@@ -87,7 +87,7 @@ func generateDummyStage():
 	
 	return stage
 
-func generateDummyFloor(isFirst: bool):
+func generateDummyFloor(isFirst: bool) -> Floor:
 	var floor = Floor.new(1)
 	var StarterPos = []
 	
@@ -107,12 +107,28 @@ func generateDummyFloor(isFirst: bool):
 	var goblinB = Foe.new("goblin swordman", goblinB_stats, 5, Constants.species.WILD_BEAST, Constants.weapons.SWORD, Constants.elements.NONE, Constants.rarities.D, "foes/goblinB.webp", "", 4)
 	goblinB.xp = 200
 	goblinB.coins = 25
+	
+	
+	var fireGoblin_stats = CreatureStats.new(450, 34, 20, 25, 12)
+	var fireGoblin = Foe.new("Fire Goblin", fireGoblin_stats, 7, Constants.species.WILD_BEAST, Constants.weapons.STAFF, Constants.elements.FIRE, Constants.rarities.C, "foes/goblinB.webp", "", 4)
+	fireGoblin.xp = 300
+	fireGoblin.coins = 45
+	
+	var pirateGolbin_stats = CreatureStats.new(375, 30, 21, 14, 10)
+	var pirateGoblin = Foe.new("Pirate Goblin", fireGoblin_stats, 5, Constants.species.WILD_BEAST, Constants.weapons.BOW, Constants.elements.ICE, Constants.rarities.C, "foes/goblinA.webp", "", 4)
+	pirateGoblin.xp = 245
+	pirateGoblin.coins = 75
+	
 	var foe_number = (randi()% 13 )+4
 	
 	var counter = 0
 	while counter < foe_number:
 		var type
-		if counter %2 > 0:
+		if counter %7 == 0:
+			type = fireGoblin
+		elif counter %11 == 0:
+			type = pirateGoblin
+		elif counter %2 > 0:
 			type = goblinA
 		else:
 			type = goblinB

@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bij4c3y3h72xf"]
+
+[ext_resource type="Script" path="res://VSplitContainer.gd" id="1_3v4tw"]
+
+[node name="VSplitContainer" type="VSplitContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3v4tw")
