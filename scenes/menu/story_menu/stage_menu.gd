@@ -7,7 +7,7 @@ var currentSquadId : int = 0
 
 func _init():
 	stage = Constants.generateDummyStage()
-	
+
 func set_input(p_chapter: Chapter, p_player: Player):
 	chapter = p_chapter
 	player = p_player
@@ -19,6 +19,7 @@ func _enter_tree():
 	$squadSelector/nextSquadBtn.pressed.connect(self.on_next_squad_clicked)
 	var squadDetail: ShortSquadItem = ShortSquadItem.new(player.getSquad(currentSquadId), currentSquadId)
 	$squadDetailPlaceHolder.add_child(squadDetail)
+	$startBtn.pressed.connect(start_battle)
 
 func buildStageSelectableItems():	
 	for id in chapter.stages.size():
@@ -35,9 +36,12 @@ func onStageSelected(p_stage : Stage):
 		$stageView.remove_child($stageView.get_children()[1])
 	var stageDetail: StageItem = StageItem.new(stage)
 	$stageView.add_child(stageDetail)
+	$startBtn.disabled = false
 
 
-
+func start_battle():
+	print("olez olez")
+	get_parent().start_battle(stage, currentSquadId)
 
 func on_prev_squad_clicked():
 	if currentSquadId == 0 :

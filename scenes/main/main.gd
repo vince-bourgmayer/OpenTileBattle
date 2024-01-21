@@ -1,5 +1,5 @@
 extends Control
-enum menu {NONE, STORY, CHAPTER, SQUAD, TAVERN, ITEMS, SAVE}
+enum menu {NONE, STORY, CHAPTER, SQUAD, TAVERN, ITEMS, SAVE, BATTLE}
 # main
 var menu_item_scene = load("res://scenes/menu/main_menu_item/main_menu_item.tscn") as PackedScene
 var mainChild
@@ -108,6 +108,18 @@ func open_stage_menu(chapter: Chapter):
 		mainChild.free()
 	mainChild = load("res://scenes/menu/story_menu/stage_menu.tscn").instantiate()
 	mainChild.set_input(chapter, player)
+	self.add_child(mainChild)
+	
+	
+func start_battle(stage: Stage, squadId: int):
+	print("start battle")
+	currentMenu_displayed = menu.BATTLE
+	remove_child($nav_top_bar)
+	remove_child($nav_bar)
+	if mainChild != null:
+		remove_child(mainChild)
+	mainChild = load("res://scenes/battle/battle_scene.tscn").instantiate()
+	mainChild.setInput(stage, player.getSquad(squadId))
 	self.add_child(mainChild)
 		
 #func export_characters_data():

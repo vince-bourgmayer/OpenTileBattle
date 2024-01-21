@@ -1,4 +1,4 @@
-extends Node2D
+class_name BattleScene extends Node2D
 
 const foe_group = "foes"
 const player_group = "player"
