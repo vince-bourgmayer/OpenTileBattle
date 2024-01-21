@@ -1,6 +1,5 @@
 class_name ChapterMenu extends ScrollContainer
 
-
 var story: Story
 var chapter_items : Array[ChapterMenuItem] = []
 

@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bij4c3y3h72xf"]
+[gd_scene load_steps=10 format=3 uid="uid://bij4c3y3h72xf"]
 
 [ext_resource type="Script" path="res://scenes/menu/story_menu/stage_menu.gd" id="1_pad2a"]
-[ext_resource type="Texture2D" uid="uid://cvp2va6dqs3qh" path="res://art/left_arrow.png" id="2_guujs"]
-[ext_resource type="Texture2D" uid="uid://l6gcjt3n18iw" path="res://art/right_arrow.png" id="3_lrm2r"]
+[ext_resource type="Texture2D" uid="uid://dghpoeyrlo1hc" path="res://art/GUI_components/left_arrow_medium.webp" id="2_psl5j"]
+[ext_resource type="Texture2D" uid="uid://dgimgtjp5p3j6" path="res://art/GUI_components/left_arrow_medium_clicked.webp" id="3_3cusu"]
+[ext_resource type="Texture2D" uid="uid://dkc38bh6nt6tl" path="res://art/GUI_components/right_arrow_medium.webp" id="3_vwqj7"]
+[ext_resource type="Texture2D" uid="uid://du6a0875xv4y7" path="res://art/GUI_components/start_button.webp" id="4_fl51p"]
+[ext_resource type="Texture2D" uid="uid://chcwf5h5jwwb0" path="res://art/GUI_components/right_arrow_medium_clicked.webp" id="5_2thoj"]
+[ext_resource type="Texture2D" uid="uid://cvw366gskrhvl" path="res://art/GUI_components/start_button_clicked.webp" id="5_7k66e"]
+[ext_resource type="Texture2D" uid="uid://br3u6m7hgryp6" path="res://art/GUI_components/start_button_disabled.webp" id="6_0vx2b"]
+[ext_resource type="Texture2D" uid="uid://bqtjpyo8mu0lv" path="res://art/GUI_components/start_button_hover.webp" id="6_bvsax"]
 
 [node name="container" type="VBoxContainer"]
 custom_minimum_size = Vector2(720, 0)
@@ -26,25 +32,44 @@ layout_mode = 2
 
 [node name="prevSquadBtn" type="TextureButton" parent="squadSelector"]
 layout_mode = 2
-texture_normal = ExtResource("2_guujs")
+texture_normal = ExtResource("2_psl5j")
+texture_pressed = ExtResource("3_3cusu")
 
-[node name="Label" type="Label" parent="squadSelector"]
-custom_minimum_size = Vector2(520, 0)
+[node name="squadIdLabel" type="Label" parent="squadSelector"]
+custom_minimum_size = Vector2(570, 75)
 layout_mode = 2
-text = "Squad n°5"
+theme_override_font_sizes/font_size = 34
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="nextSquadBtn" type="TextureButton" parent="squadSelector"]
 layout_mode = 2
-texture_normal = ExtResource("3_lrm2r")
+texture_normal = ExtResource("3_vwqj7")
+texture_pressed = ExtResource("5_2thoj")
 
 [node name="squadDetailPlaceHolder" type="Control" parent="."]
 custom_minimum_size = Vector2(0, 350)
 layout_mode = 2
 
-[node name="startBtn" type="Button" parent="."]
+[node name="startBtn" type="TextureButton" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
+disabled = true
+texture_normal = ExtResource("4_fl51p")
+texture_pressed = ExtResource("6_bvsax")
+texture_hover = ExtResource("5_7k66e")
+texture_disabled = ExtResource("6_0vx2b")
+
+[node name="Label" type="Label" parent="startBtn"]
+custom_minimum_size = Vector2(350, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.192157, 0.380392, 0.380392, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 31
 text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1

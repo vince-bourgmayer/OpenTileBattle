@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dkgiqvju0si4s"]
+[gd_scene load_steps=4 format=3 uid="uid://dkgiqvju0si4s"]
 
 [ext_resource type="Script" path="res://scenes/GUI_component/menu/nav_top_bar.gd" id="1_4uqj3"]
 [ext_resource type="Texture2D" uid="uid://cp5himsgtbgvx" path="res://art/CoinsIcon.webp" id="1_chkbl"]
+[ext_resource type="Texture2D" uid="uid://bs83yrpc676m" path="res://art/GUI_components/back_arrow_medium.webp" id="2_jvxbw"]
 
 [node name="nav_top_bar" type="Control"]
 layout_mode = 3
@@ -37,9 +38,8 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 28
-text = "Back"
+icon = ExtResource("2_jvxbw")
 icon_alignment = 1
-vertical_icon_alignment = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
