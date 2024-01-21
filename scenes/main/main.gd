@@ -53,12 +53,9 @@ func openStoryMenu():
 		return
 	else:
 		currentMenu_displayed = menu.STORY
-		self.remove_child(mainChild)
-		#self.remove_child($navBar)
+		if mainChild != null:
+			mainChild.free()
 		mainChild = load("res://scenes/menu/story_menu/story_menu.tscn").instantiate()
-		#mainChild = load("res://scenes/battle/battle_scene.tscn").instantiate()
-		#var stage = Constants.generateDummyStage()
-		#mainChild.setInput(stage, player.getSquad(1))
 		self.add_child(mainChild)
 		$nav_top_bar.setTitle("Story")
 	
@@ -69,7 +66,8 @@ func openSquadMenu():
 		return
 	else:
 		currentMenu_displayed = menu.SQUAD
-		self.remove_child(mainChild)
+		if mainChild != null:
+			mainChild.free()
 		mainChild = load("res://scenes/menu/squad_menu/squad_menu.tscn").instantiate()
 		self.add_child(mainChild)
 		$nav_top_bar.setTitle("Squad")
@@ -81,7 +79,8 @@ func openTavernMenu():
 		return
 	else:
 		currentMenu_displayed = menu.TAVERN
-		self.remove_child(mainChild)
+		if mainChild != null:
+			mainChild.free()
 		mainChild = load("res://scenes/menu/character_selector_menu/character_list.tscn").instantiate()
 		mainChild.set_on_item_click_callback( func (item) : print("Item clicked %s" % item.firstname))
 		self.add_child(mainChild)
@@ -95,7 +94,8 @@ func open_character_picker():
 func open_chapter_menu(story: Story):
 	currentMenu_displayed = menu.CHAPTER
 	$nav_top_bar.setTitle("%s - Chapters" % story.title)
-	self.remove_child(mainChild)
+	if mainChild != null:
+		mainChild.free()
 	mainChild = load("res://scenes/menu/story_menu/chapter_menu.tscn").instantiate()
 	mainChild.set_story(story)
 	self.add_child(mainChild)
@@ -104,7 +104,8 @@ func open_stage_menu(chapter: Chapter):
 	print("open stage")
 	currentMenu_displayed = menu.CHAPTER
 	$nav_top_bar.setTitle("Chapter %s" % chapter.id)
-	self.remove_child(mainChild)
+	if mainChild != null:
+		mainChild.free()
 	mainChild = load("res://scenes/menu/story_menu/stage_menu.tscn").instantiate()
 	mainChild.set_input(chapter, player)
 	self.add_child(mainChild)
