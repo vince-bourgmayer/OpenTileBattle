@@ -4,10 +4,12 @@ var stage: Stage
 
 func _init(p_stage: Stage):
 	stage = p_stage
+	size_flags_vertical = Control.SIZE_SHRINK_CENTER
 	
 func _enter_tree():
 	add_child(buildTitleLabel())
 	add_child(buildFloorCountLabel())
+	
 	var foesTypeLabel: Label = Label.new()
 	foesTypeLabel.text = "Foes' type:"
 	foesTypeLabel.add_theme_font_size_override("font_size", 20)

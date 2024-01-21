@@ -50,8 +50,21 @@ func _generate_test_stories():
 	var gs_chapter_1 = Chapter.new(1)
 	gs_chapter_1.alreadyDone = true
 	gs_chapter_1.unlocked = true
+	
+	var gs_chap1_stage_0 : Stage = Constants.generateDummyStage()
+	gs_chap1_stage_0.title = "I can smell goblins here"
+	var gs_chap1_stage_1 : Stage= Constants.generateDummyStage()
+	gs_chap1_stage_1.title =  "It's a Goblin's Nest"
+	gs_chapter_1.stages.append(gs_chap1_stage_0)
+	gs_chapter_1.stages.append(gs_chap1_stage_1)
+	
 	var gs_chapter_2 = Chapter.new(2)
 	gs_chapter_2.unlocked = true
+	gs_chapter_2.stages.append(Constants.generateDummyStage())
+	gs_chapter_2.stages.append(Constants.generateDummyStage())
+	gs_chapter_2.stages.append(Constants.generateDummyStage())
+	
+	
 	var gs_chapter_3 = Chapter.new(3)
 	var gs_chapter_4 = Chapter.new(4)
 	var gs_chapter_5 = Chapter.new(5)

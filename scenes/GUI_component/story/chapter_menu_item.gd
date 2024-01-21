@@ -11,8 +11,10 @@ const texture = {
 
 var button: TextureButton
 var title : Label
+var clicked_callback: Callable
 
-func _init(chapter: Chapter):
+func _init(chapter: Chapter, p_clicked_callback: Callable):
+	clicked_callback = p_clicked_callback
 	custom_minimum_size = Vector2(500, 75)
 	build_button(chapter)
 	build_title(chapter)
@@ -24,10 +26,7 @@ func _init(chapter: Chapter):
 	add_child(title)
 	size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
-	pass
-	
-func _enter_tree():
-	pass
+
 
 func build_button(chapter: Chapter):
 	button = TextureButton.new()
@@ -42,6 +41,7 @@ func build_button(chapter: Chapter):
 	button.texture_disabled = texture["disabled"]
 	button.disabled = !chapter.unlocked
 	button.custom_minimum_size = Vector2(500, 75)
+	button.pressed.connect(clicked_callback)
 
 func build_title(chapter: Chapter):
 	title = Label.new()

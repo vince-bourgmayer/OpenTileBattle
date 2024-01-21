@@ -81,9 +81,9 @@ const lifeBar_lightblue = "3dd0e4"
 func generateDummyStage() -> Stage:
 	var stage = Stage.new(1, "Is he here ?")
 	
-	stage.add_floor(generateDummyFloor(true))
-	stage.add_floor(generateDummyFloor(false))
-	stage.add_floor(generateDummyFloor(false))
+	var nb =  (randi()% 3 )+1
+	for n in nb:
+		stage.add_floor(generateDummyFloor(true))
 	
 	return stage
 

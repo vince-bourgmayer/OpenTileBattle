@@ -99,6 +99,15 @@ func open_chapter_menu(story: Story):
 	mainChild = load("res://scenes/menu/story_menu/chapter_menu.tscn").instantiate()
 	mainChild.set_story(story)
 	self.add_child(mainChild)
+	
+func open_stage_menu(chapter: Chapter):
+	print("open stage")
+	currentMenu_displayed = menu.CHAPTER
+	$nav_top_bar.setTitle("Chapter %s" % chapter.id)
+	self.remove_child(mainChild)
+	mainChild = load("res://scenes/menu/story_menu/stage_menu.tscn").instantiate()
+	mainChild.set_input(chapter, player)
+	self.add_child(mainChild)
 		
 #func export_characters_data():
 	#const character_data_list_path = "res://gameData/characters_data.tres"
