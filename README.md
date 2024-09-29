@@ -19,6 +19,10 @@ properties of their respective owner (e.g Mistwalker) must be replaced firstly b
 The game should be a free single player.
 One idea for later, let user to create their own custom characters, skills, etc. and scenarios.
 
+
+## Demo
+![Watch the video](demo.mov)
+
 ## Developer
 Vincent Bourgmayer
 
